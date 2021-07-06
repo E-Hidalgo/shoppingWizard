@@ -7,65 +7,63 @@
 // --------- VARIABLES --------
 
 let next = document.getElementById("next");
-let back = document.getElementById("back");
-let clear = document.getElementById("clear");
+//let back = document.getElementById("back");
 let num = 0;
+let clear = document.getElementById("clear");
 
+// --------- EVENTS --------
+
+clear.addEventListener("click", clear1);
 next.addEventListener("click", change1);
-
 back.addEventListener("click", change2);
 
-// ------ CLEAR FUNCTION -------
+// --------- CLEAR --------
 
-clear.addEventListener("click", cleaner);
-
-function cleaner() {
-  num = 1;
+function clear1() {
+  document.getElementById("miForm").reset();
 }
+
+//var numAdd = (num += 1);
 
 function change1() {
-  num = num + 1;
-  return num;
+  return num += 1;
 }
-console.log(num);
+
+
+//var numQuit = (num -= 1);
 
 function change2() {
-  num = num - 1;
-  return num;
+  return num -= 1;
 }
 
 console.log(num);
 
-function change(num) {
+function recharge(num) {
   switch (num) {
     case 0:
-      let temp = document.getElementsByTagName("template")[0];
-      let clon = temp.content.cloneNode(true);
-      document.body.appendChild(clon);
+      document.getElementById("product").style.display = "contents";
+      document.getElementById("profile").style.display = "none";
       break;
     case 1:
-      let temp1 = document.getElementsByTagName("template")[1];
-      let clon1 = temp1.content.cloneNode(true);
-      document.body.appendChild(clon1);
+      document.getElementById("product").style.display = "none";
+      document.getElementById("profile").style.display = "contents";
+      document.getElementById("address").style.display = "none";
       break;
     case 2:
-      let temp2 = document.getElementsByTagName("template")[2];
-      let clon2 = temp2.content.cloneNode(true);
-      document.body.appendChild(clon2);
+      document.getElementById("profile").style.display = "none";
+      document.getElementById("address").style.display = "contents";
+      document.getElementById("shipping").style.display = "none";
       break;
     case 3:
-      let temp3 = document.getElementsByTagName("template")[3];
-      let clon3 = temp3.content.cloneNode(true);
-      document.body.appendChild(clon3);
+      document.getElementById("address").style.display = "none";
+      document.getElementById("shipping").style.display = "contents";
+      document.getElementById("finish").style.display = "none";
       break;
     case 4:
-      let temp4 = document.getElementsByTagName("template")[4];
-      let clon4 = temp4.content.cloneNode(true);
-      document.body.appendChild(clon4);
+      document.getElementById("shipping").style.display = "none";
+      document.getElementById("finish").style.display = "contents";
       break;
     default:
+      alert('hola');
   }
 }
-console.log(num);
-
-//document.getElementById('h').style.display = 'none'"
