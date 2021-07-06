@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -9,7 +11,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
 }
 
 /* HEADER */
@@ -17,11 +20,12 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #272728;
   height: 50px;
   padding-left: 20px;
   color: white;
+  padding-left: 20px;
 }
 
 .topMenu {
@@ -41,22 +45,77 @@ header {
   display: flex;
   align-items: center;
   list-style-type: none;
+  padding-right: 20px;
 }
 
 .toolsMenu li {
   padding: 10px;
 }
 
+/* ---------------- BREADCRUMBS ------------ */
+
+.breadCrumbs {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-between;
+  list-style-type: none;
+  margin: 50px;
+}
+
+.ballsLine {
+  display: flex;
+  background-color: #272728;
+  height: 5px;
+  max-width: 70%;
+  justify-content: center;
+}
+/* ------------ FORM -------------- */
+
 .form {
   display: flex;
   flex-direction: column;
   max-width: 300px;
+  margin: 50px 0px 50px 200px;
+}
+
+.form input {
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+select {
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+/* --------- BUTTONS --------- */
+
+.backClearNext {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  bottom: 50px;
+  justify-content: space-around;
+  background-color: #272728;
+  padding: 10px;
+  margin: 20px 0px;
+}
+
+.backClearNext button {
+  background-color: rgb(29, 29, 29);
+  font-size: 15px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 /* FOOTER */
 
 .footer {
   display: flex;
+  position: fixed;
+  bottom: 0;
   justify-content: center;
   align-items: center;
   background-color: #f4f4f4;
