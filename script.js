@@ -1,21 +1,12 @@
-//screen 0 = id product
-//screen 1 = id profile
-//screen 2 = id address
-//screen 3 = id shipping
-//screen 4 = id finish
-
 // --------- VARIABLES --------
 
-let next = document.getElementById("next");
-//let back = document.getElementById("back");
-let num = 0;
 let clear = document.getElementById("clear");
+let form = document.getElementById("miForm");
+let inputs = document.querySelectorAll("#miForm input");
 
 // --------- EVENTS --------
 
 clear.addEventListener("click", clear1);
-next.addEventListener("click", change1);
-back.addEventListener("click", change2);
 
 // --------- CLEAR --------
 
@@ -23,47 +14,100 @@ function clear1() {
   document.getElementById("miForm").reset();
 }
 
-//var numAdd = (num += 1);
+//------- EXPRESSIONS --------
+let expressions = {
+  username: /^[a-zA-Z0-9\_\-]{4,10}$/, //Username should be between 4-10 characters including letters, numbers, dash and underscore
+  email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+$/,
+  password: /^[a-zA-Z0-9\W\-_]{6,}$/,
+  password2: /^[a-zA-Z0-9\W\-_]{6,}$/,
+  firstName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
+  lastName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
+  // birthday: /^[0-9]{2}$+\+[0-9]{2}$+\+[0-9]{4}$/,
+  // address1: /^[a-zA-Z0-9\/\,]+/,
+  // address2: /^[a-zA-Z0-9\/\,]+/,
+  // postalCode: /^[0-9]/,
+  // country: /^[a-zA-Z0-9]/,
+  // phone: /^\?+[0-9]\?[-/s]{2,4}[0-9]\?[-/s]{3}+[0-9]\?[-/s]{3}+[0-9]{3}/,
+};
 
-function change1() {
-  return num += 1;
-}
+// ------------ VALIDATING FUNCTION----------
 
+let validateForm = (e) => {
+  switch (e.target.name) {  // EVENTO TARGETEA AL NOMBRE
+    case "username":
+      // console.log("Yeka Muñeca!");
 
-//var numQuit = (num -= 1);
+      if (expressions.username.test(e.target.value)) {
+        document.getElementById("username").classList.remove("incorrect");
+        document.getElementById("username").classList.add("correct");
+      } else {
+        document.getElementById("username").classList.add("incorrect");
+      }
 
-function change2() {
-  return num -= 1;
-}
-
-console.log(num);
-
-function recharge(num) {
-  switch (num) {
-    case 0:
-      document.getElementById("product").style.display = "contents";
-      document.getElementById("profile").style.display = "none";
       break;
-    case 1:
-      document.getElementById("product").style.display = "none";
-      document.getElementById("profile").style.display = "contents";
-      document.getElementById("address").style.display = "none";
-      break;
-    case 2:
-      document.getElementById("profile").style.display = "none";
-      document.getElementById("address").style.display = "contents";
-      document.getElementById("shipping").style.display = "none";
-      break;
-    case 3:
-      document.getElementById("address").style.display = "none";
-      document.getElementById("shipping").style.display = "contents";
-      document.getElementById("finish").style.display = "none";
-      break;
-    case 4:
-      document.getElementById("shipping").style.display = "none";
-      document.getElementById("finish").style.display = "contents";
-      break;
-    default:
-      alert('hola');
   }
-}
+  // console.log(e.target.name);
+};
+
+//-------- EVENT LISTENER TO EXECUTING VALIDATING
+
+inputs.forEach((input) => {
+  input.addEventListener("keyup", validateForm); // WHEN KEY UP
+  input.addEventListener("blur", validateForm); // WHEN CLICK OUTSIDE
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+// -------- Validation form
+
+// const form = document.getElementById('form');
+
+// switch () {
+//   case username:
+
+//     break;
+//   case email:
+
+//     break;
+//   case password:
+
+//     break;
+//   case password2:
+
+//     break;
+//   case firstName:
+
+//     break;
+//   case lastName:
+
+//     break;
+//   case birthday:
+
+//     break;
+//   case address1:
+
+//     break;
+//   case address2:
+
+//     break;
+//   case postalCode:
+
+//     break;
+//   case country:
+
+//     break;
+//   case phone:
+
+//     break;
+//   case shipping:
+
+//     break;
+//   case textGift:
+
+//     break;
+
+//   default:
+//     alert('hola');
+// }
