@@ -1,18 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:&display=swap");
-
 * {
   box-sizing: border-box;
 }
 
-html {
-  height: 100vh;
-}
-
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* HEADER */
@@ -26,6 +21,11 @@ header {
   padding-left: 20px;
   color: white;
   padding-left: 20px;
+}
+
+.logo-menu {
+  width: 150px;
+  margin-left: 5rem;
 }
 
 .topMenu {
@@ -52,30 +52,87 @@ header {
   padding: 10px;
 }
 
-/* ---------------- BREADCRUMBS ------------ */
-
-.breadCrumbs {
-  display: flex;
-  justify-content: space-evenly;
-  align-content: space-between;
-  list-style-type: none;
-  margin: 50px;
+.shopping-bag {
+  width: 20px;
 }
 
-.ballsLine {
+/* ------------ MAIN CONTAINER -------------- */
+
+.main-container {
   display: flex;
-  background-color: #272728;
-  height: 5px;
-  max-width: 70%;
   justify-content: center;
 }
+
+/* ------------ INDEX -------------- */
+
+.shopping-index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  padding-left: 7rem;
+  padding-top: 3rem;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid #272728;
+}
+
+.activeDot {
+  background-color: #272728;
+}
+
+.indexElementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ------------ SECTION -------------- */
+
+.main-section {
+  width: 40%;
+  /* margin: 50px 0px 50px 200px; */
+}
+
+.product {
+  padding-top: 3rem;
+}
+
+.main-product-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.main-product {
+  max-width: 30rem;
+}
+
+.main-product-thumbnail-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-product-thumbnail {
+  max-width: 3rem;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+
+.main-product-thumbnail:hover {
+  border: 1px solid #272728;
+}
+
 /* ------------ FORM -------------- */
 
 .form {
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  margin: 50px 0px 50px 200px;
 }
 
 .form input {
@@ -88,20 +145,53 @@ select {
   padding: 10px;
 }
 
-/* --------- BUTTONS --------- */
+/* ------------ ASIDE -------------- */
 
-.backClearNext {
-  display: flex;
-  width: 100%;
-  position: fixed;
-  bottom: 50px;
-  justify-content: space-around;
-  background-color: #272728;
-  padding: 10px;
-  margin: 20px 0px;
+.main-aside {
+  width: 40%;
 }
 
-.backClearNext button {
+.aside-product {
+  max-width: 50rem;
+  padding: 5rem 20rem 0 0;
+}
+
+.thumbnails-container {
+  display: flex;
+  flex: 1;
+}
+
+.product-thumbnail {
+  width: 3rem;
+  cursor: pointer;
+}
+
+.product-thumbnail:hover {
+  border: 1px solid #272728;
+}
+
+.buy-button {
+  margin-top: 1rem ;
+  background-color: rgb(29, 29, 29);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* --------- BUTTONS --------- */
+
+.page-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  bottom: 50px;
+  padding: 10px;
+  background-color: #272728;
+  position: fixed;
+}
+
+.page-navigation button {
   background-color: rgb(29, 29, 29);
   font-size: 15px;
   color: white;
@@ -114,13 +204,14 @@ select {
 
 .footer {
   display: flex;
-  position: fixed;
+  width: 100%;
   bottom: 0;
   justify-content: center;
   align-items: center;
   background-color: #f4f4f4;
   height: 50px;
   font-size: 12px;
+  position: fixed;
 }
 
 .websiteMap {
@@ -142,3 +233,19 @@ select {
 .socialFooter li {
   padding: 5px;
 }
+
+
+/* ------------ NAVIGATION -------------- */
+
+.display-none {
+  display: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+
+
+/* UTILS */
+
