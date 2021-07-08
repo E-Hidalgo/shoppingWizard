@@ -1,17 +1,17 @@
 // --------- VARIABLES --------
 
-let clear = document.getElementById("clear");
+let clearBtn = document.getElementById("clear-button");
 let form = document.getElementById("miForm");
 let inputs = document.querySelectorAll("#miForm input");
 
 // --------- EVENTS --------
 
-clear.addEventListener("click", clear1);
+clearBtn.addEventListener("click", clear);
 
-// --------- CLEAR --------
+// --------- CLEAR --------Button
 
-function clear1() {
-  document.getElementById("miForm").reset();
+function clear() {
+  document.getElementById("clear-button").reset();
 }
 
 //------- EXPRESSIONS --------
@@ -22,31 +22,123 @@ let expressions = {
   password2: /^[a-zA-Z0-9\W\-_]{6,}$/,
   firstName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
   lastName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
-  // birthday: /^[0-9]{2}$+\+[0-9]{2}$+\+[0-9]{4}$/,
-  // address1: /^[a-zA-Z0-9\/\,]+/,
-  // address2: /^[a-zA-Z0-9\/\,]+/,
-  // postalCode: /^[0-9]/,
-  // country: /^[a-zA-Z0-9]/,
-  // phone: /^\?+[0-9]\?[-/s]{2,4}[0-9]\?[-/s]{3}+[0-9]\?[-/s]{3}+[0-9]{3}/,
+  //  birthday: /^[0-9]{2}$+\+[0-9]{2}$+\+[0-9]{4}$/,
+  address: /^[a-zA-Z0-9\/\,]+/,
+  postalCode: /^[0-9]{5,5}$/,
+  //country: /^[a-zA-Z0-9]/,
+  phone: /^\+\d{2,3}\s\d{9}$/,
 };
 
 // ------------ VALIDATING FUNCTION----------
 
+
+// let validateField = (expression, input, field) => {
+//   if (expression.test(input.value)) {
+//     document.getElementById(`${field}`).classList.remove("incorrect");
+//     document.getElementById(`${field}`).classList.add("correct");
+//     document
+//       .getElementById(`${field}IncorrectText`)
+//       .classList.add("displayNone");
+//   } else {
+//     document.getElementById(`${field}`).classList.add("incorrect");
+//     document
+//       .getElementById(`${field}IncorrectText`)
+//       .classList.remove("displayNone");
+//   }
+// };
+
+
 let validateForm = (e) => {
-  switch (e.target.name) {  // EVENTO TARGETEA AL NOMBRE
+  switch (
+    e.target.name // EVENTO TARGETEA AL NOMBRE
+  ) {
     case "username":
-      // console.log("Yeka Muñeca!");
+      validateField(expressions.username, e.target, "username");
 
-      if (expressions.username.test(e.target.value)) {
-        document.getElementById("username").classList.remove("incorrect");
-        document.getElementById("username").classList.add("correct");
-      } else {
-        document.getElementById("username").classList.add("incorrect");
-      }
+      // function validateField() {
+      //   if (expression.test(input.value))
 
+
+      
+      break;
+
+    case "email":
+      validateField(expressions.email, e.target, "email");
+      break;
+
+    case "password":
+      validateField(expressions.password, e.target, "password");
+      validateConfirmPassword("password");
+      break;
+
+    case "confirmPassword":
+      validateConfirmPassword("confirmPassword");
+      break;
+
+    case "firstName":
+      validateField(expressions.firstName, e.target, "firstName");
+      break;
+
+    case "lastName":
+      validateField(expressions.lastName, e.target, "lastName");
+      break;
+
+    //case "birthday":
+      //validateDate();
+      //console.log(birthday(date));
+      //break;
+
+    case "address1":
+      validateField(expressions.address, e.target, "address1");
+      break;
+
+    case "address2":
+      validateField(expressions.address, e.target, "address2");
+      break;
+
+    case "postalCode":
+      validateField(expressions.postalCode, e.target, "postalCode");
+      break;
+
+    case "phone":
+      validateField(expressions.phone, e.target, "phone");
       break;
   }
-  // console.log(e.target.name);
+};
+
+//let validateDate = () => {}
+
+let validateConfirmPassword = (field) => {
+  let inputPassword = document.getElementById("password");
+  let inputConfirmPassword = document.getElementById("confirmPassword");
+
+  if (inputPassword.value !== inputConfirmPassword.value) {
+    document.getElementById(`${field}`).classList.remove("incorrect");
+    document.getElementById(`${field}`).classList.add("correct");
+    document
+      .getElementById(`${field}IncorrectText`)
+      .classList.add("displayNone");
+  } else {
+    document.getElementById(`${field}`).classList.add("incorrect");
+    document
+      .getElementById(`${field}IncorrectText`)
+      .classList.remove("displayNone");
+  }
+};
+
+let validateField = (expression, input, field) => {
+  if (expression.test(input.value)) {
+    document.getElementById(`${field}`).classList.remove("incorrect");
+    document.getElementById(`${field}`).classList.add("correct");
+    document
+      .getElementById(`${field}IncorrectText`)
+      .classList.add("displayNone");
+  } else {
+    document.getElementById(`${field}`).classList.add("incorrect");
+    document
+      .getElementById(`${field}IncorrectText`)
+      .classList.remove("displayNone");
+  }
 };
 
 //-------- EVENT LISTENER TO EXECUTING VALIDATING
@@ -62,52 +154,70 @@ form.addEventListener("submit", (e) => {
 
 // -------- Validation form
 
-// const form = document.getElementById('form');
+let next = document.getElementById("next");
+next.addEventListener("click", moveForward);
+let back = document.getElementById("back");
+back.addEventListener("click", moveBackward);
 
-// switch () {
-//   case username:
+let product = document.getElementById("product");
+let profile = document.getElementById("profile");
+let address = document.getElementById("address");
+let shipping = document.getElementById("shipping");
+let finish = document.getElementById("finish");
+let thankYou = document.getElementById("thank-you");
 
-//     break;
-//   case email:
+let topNav = document.getElementById("lineNav");
 
-//     break;
-//   case password:
+let actualPage = "product";
 
-//     break;
-//   case password2:
+function moveForward() {
+  console.log("hola");
+  if (actualPage == "product") {
+    product.style.display = "none";
+    profile.style.display = "flex";
+    topNav.style.display = "flex";
+    actualPage = "profile";
+  } else if (actualPage == "profile") {
+    profile.style.display = "none";
+    address.style.display = "flex";
+    actualPage = "address";
+  } else if (actualPage == "address") {
+    address.style.display = "none";
+    shipping.style.display = "flex";
+    actualPage = "shipping";
+  } else if (actualPage == "shipping") {
+    shipping.style.display = "none";
+    finish.style.display = "flex";
+    actualPage = "finish";
+  } else if (actualPage == "finish") {
+    finish.style.display = "none";
+    thankYou.style.display = "flex";
+    actualPage = "thankYou";
+  }
+}
 
-//     break;
-//   case firstName:
-
-//     break;
-//   case lastName:
-
-//     break;
-//   case birthday:
-
-//     break;
-//   case address1:
-
-//     break;
-//   case address2:
-
-//     break;
-//   case postalCode:
-
-//     break;
-//   case country:
-
-//     break;
-//   case phone:
-
-//     break;
-//   case shipping:
-
-//     break;
-//   case textGift:
-
-//     break;
-
-//   default:
-//     alert('hola');
-// }
+function moveBackward() {
+  console.log("hola");
+  if (actualPage == "thankYou") {
+    thankYou.style.display = "none";
+    finish.style.display = "flex";
+    actualPage = "finish";
+  } else if (actualPage == "finish") {
+    finish.style.display = "none";
+    shipping.style.display = "flex";
+    actualPage = "shipping";
+  } else if (actualPage == "shipping") {
+    shipping.style.display = "none";
+    address.style.display = "flex";
+    actualPage = "address";
+  } else if (actualPage == "address") {
+    address.style.display = "none";
+    profile.style.display = "flex";
+    actualPage = "profile";
+  } else if (actualPage == "profile") {
+    profile.style.display = "none";
+    product.style.display = "block";
+    topNav.style.display = "none";
+    actualPage = "product";
+  }
+}

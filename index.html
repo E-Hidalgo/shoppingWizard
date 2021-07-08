@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Northweek</title>
+    <link
+      rel="all-icons"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <link rel="icon" href="img/favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,17 +27,17 @@
       <img src="/img/logo.svg" alt="logo" width="150px" />
       <nav>
         <ul class="topMenu">
-          <li>GAFAS DE SOL</li>
-          <li>PERSONALIZAR</li>
+          <li>SUNGLASSES</li>
+          <li>PERSONALIZE</li>
           <li>SNOW</li>
-          <li>ACCESORIOS</li>
+          <li>ACCESSORIES</li>
           <li>BLUE LIGHT</li>
           <li>CLOTHING</li>
         </ul>
       </nav>
       <nav>
         <ul class="toolsMenu">
-          <li>ES</li>
+          <li>EN</li>
           <li>
             <img src="/img/shopping-bag.svg" alt="shopping cart" width="20px" />
           </li>
@@ -41,30 +45,62 @@
       </nav>
     </header>
     <main>
-      <nav>
+      <nav class="lineNav" id="lineNav">
         <ul class="breadCrumbs">
-          <li>Profile</li>
-          <li>Address</li>
-          <li>Shipping</li>
-          <li>Finish</li>
+          <li class="centerBall">
+            Profile
+            <div class="ball" id="profileBall"></div>
+          </li>
+          <li class="centerBall">
+            Address
+            <div class="ball" id="addressBall"></div>
+          </li>
+          <li class="centerBall">
+            Shipping
+            <div class="ball" id="shippingBall"></div>
+          </li>
+          <li class="centerBall">
+            Finish
+            <div class="ball" id="finishBall"></div>
+          </li>
+          <div class="ballsLine"></div>
         </ul>
-        <div class="ballsLine"></div>
       </nav>
-      <article>
+      <article class="container">
         <section>
           <!-- CONTENIDO VENTA + FORMULARIO -->
           <!---------- 1st SCREEN -------->
           <div class="product" id="product">
-            <template>
-              <h1>Main Product Page</h1>
-              <p>Whatever whatever whatever</p>
-            </template>
+            <div>
+              <h2>Nortweek SUNGLASSES</h2>
+              <p>Price</p>
+              <h2 id="price">14.55€</h2>
+              <p>Size</p>
+              <select required>
+                <option value="" selected disabled hidden>
+                  Choose your package
+                </option>
+                <option>Regular package</option>
+                <option>Premium package</option>
+                <option>Exclusive package</option>
+              </select>
+              <p>Color</p>
+              <div>
+                <img src="img\products\1.png" class="thumbNail" />
+                <img src="img\products\2.png" class="thumbNail" />
+                <img src="img\products\3.png" class="thumbNail" />
+                <img src="img\products\4.png" class="thumbNail" />
+                <img src="img\products\5.png" class="thumbNail" />
+                <img src="img\products\6.png" class="thumbNail" />
+                <img src="img\products\7.png" class="thumbNail" />
+              </div>
+              <button class="navBtn next">Buy</button>
+            </div>
           </div>
 
           <!---------- 2nd SCREEN -------->
           <form id="miForm">
             <div class="form" id="profile">
-              <!-- <template> -->
               <h2>Profile</h2>
               <label for="username">Username</label>
               <input
@@ -74,12 +110,12 @@
                 placeholder="Tupak123"
                 required
               />
-              <p>
+              <p class="displayNone" id="usernameIncorrectText">
                 Username must be between 4-10 characters including letters,
                 numbers, dash, and underscore
               </p>
 
-              <label for="email" for="email">Email</label>
+              <label for="email">Email</label>
               <input
                 type="email"
                 id="email"
@@ -87,22 +123,30 @@
                 placeholder="tupak_oldschool@hiphop.com"
                 required
               />
+              <p class="displayNone" id="emailIncorrectText">
+                Email must including letters, numbers, dash, plus, minus and
+                underscore
+              </p>
 
               <label for="password">Password</label>
               <input type="password" id="password" name="password" required />
+              <p id="passwordIncorrectText">primera mal</p>
 
-              <label for="confirmPassword">Confirm Password</label>
+              <label class="displayNone" for="confirmPassword"
+                >Confirm Password</label
+              >
               <input
                 type="password"
                 id="confirmPassword"
                 name="password2"
                 required
               />
-              <!-- </template> -->
+              <p class="displayNone" id="confirmPasswordIncorrectText">
+                segunda mal
+              </p>
             </div>
             <!---------- 3rd SCREEN -------->
             <div class="form" id="address">
-              <!-- <template> -->
               <h2>Address</h2>
               <label for="firstName">First Name</label>
               <input
@@ -112,6 +156,7 @@
                 placeholder="Tupac"
                 required
               />
+              <p class="displayNone" id="firstNameIncorrectText">segunda mal</p>
 
               <label for="lastName">Last Name</label>
               <input
@@ -121,15 +166,17 @@
                 placeholder="Amaru Shakur"
                 required
               />
+              <p class="displayNone" id="lastNameIncorrectText">segunda mal</p>
 
               <label for="birthday">Birthday</label>
               <input
-                type="address"
+                type="date"
                 id="birthday"
                 name="birthday"
                 placeholder="MM/DD/AA"
                 required
               />
+              <p class="displayNone" id="birthdayIncorrectText">segunda mal</p>
 
               <label for="address1">Address 1</label>
               <input
@@ -139,6 +186,7 @@
                 placeholder="C/ Whatever St, City"
                 required
               />
+              <p class="displayNone" id="address1IncorrectText">segunda mal</p>
 
               <label for="address2">Address 2</label>
               <input
@@ -148,6 +196,7 @@
                 placeholder="23, 1 C"
                 required
               />
+              <p class="displayNone" id="address2IncorrectText">segunda mal</p>
 
               <label for="postalCode">Postal Code</label>
               <input
@@ -157,6 +206,9 @@
                 placeholder="99999"
                 required
               />
+              <p class="displayNone" id="postalCodeIncorrectText">
+                segunda mal
+              </p>
 
               <label for="country">Country</label>
               <select id="country" required>
@@ -475,35 +527,26 @@
 
               <label for="phoneNumber">Phone</label>
               <input type="tel" id="phoneNumber" required />
+              <p class="displayNone" id="phoneNumberIncorrectText">
+                segunda mal
+              </p>
               <label for="checkbox">
                 <input type="checkbox" id="checkbox" /> This is my regular
                 address
               </label>
-              <!-- </template> -->
             </div>
             <!---------- 4th SCREEN -------->
 
             <div class="form" id="shipping">
-              <!-- <template> -->
               <h2>Shipping</h2>
 
               <label for="freeShipping">
-                <input
-                  type="radio"
-                  value="freeShipping"
-                  id="freeShipping"
-                  name="shipping"
-                />
+                <input type="radio" value="freeShipping" id="freeShipping" />
                 Free Shipping (72H)
               </label>
 
               <label for="extraShipping">
-                <input
-                  type="radio"
-                  value="extraShipping"
-                  id="extraShipping"
-                  name="shipping"
-                />
+                <input type="radio" value="extraShipping" id="extraShipping" />
                 Extra Shipping (48H) 4,99€
               </label>
 
@@ -512,36 +555,67 @@
                   type="radio"
                   value="premiumShipping"
                   id="premiumShipping"
-                  name="shipping"
                 />
                 Premium (24H) 9,99€
               </label>
               <br />
 
-              <!-- </template> -->
               <p>Gift Message</p>
+
               <label for="gift">
-                <input type="checkbox" id="gift" /> Is it a gift?
+                <input type="checkbox" id="gift" />
+                Is it a gift?
               </label>
-              <textarea name="giftText" id="giftText" cols="30" rows="10">
-Tell something to your friend...
-              </textarea>
+              <textarea
+                name="giftText"
+                id="giftText"
+                cols="30"
+                rows="10"
+                placeholder="Tell something to your friend..."
+              ></textarea>
               <p>Gift wrapper image</p>
               <button type="file">
                 Select Image <i class="far fa-file-image"></i>
               </button>
             </div>
           </form>
+
+          <!---------- 5th SCREEN -------->
+          <div id="finish" class="finish">
+            <h2>Shipping</h2>
+            <p>Shipping type:</p>
+            <div id="shippingType">
+              <!-- metodo de envio elegido y su importe-->
+            </div>
+            <p>Your order will arrive:</p>
+            <div id="dateArriving"><!-- cuando lega el pedido --></div>
+            <div id="gitMessage"></div>
+          </div>
+          <!---------- 6th SCREEN -------->
+          <div id="thank-you" class="thank-you">
+            <p>finish page</p>
+          </div>
         </section>
 
         <!---------- ASIDE BAR WITH PICTURES AND TEXT MESSAGES -------->
-        <aside></aside>
+        <aside>
+          <div class="images">
+            <div>
+              <img src="img\gradiant_amare\1.png" class="mainImage" />
+            </div>
+            <div class="thumbNailContent">
+              <img src="img\gradiant_amare\1.png" class="thumbNailChoose" />
+              <img src="img\gradiant_amare\2.png" class="thumbNailChoose" />
+              <img src="img\gradiant_amare\3.png" class="thumbNailChoose" />
+            </div>
+          </div>
+        </aside>
       </article>
       <nav class="backClearNext" id="backClearNext">
         <button class="navBtn back" id="back">
           <i class="fas fa-arrow-left"></i>
         </button>
-        <button class="navBtn clear" id="clear">Clear Form</button>
+        <button class="navBtn clear" id="clear-button">Clear Form</button>
         <button class="navBtn next" id="next">Next</button>
       </nav>
     </main>
@@ -569,6 +643,7 @@ Tell something to your friend...
         <li><i class="fab fa-instagram"></i></li>
         <li><i class="fab fa-tiktok"></i></li>
         <li><i class="fab fa-youtube"></i></li>
+        <li><i class="fas fa-expand-alt"></i></li>
       </nav>
     </footer>
     <script src="script.js"></script>
