@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="shortcut icon"
@@ -535,7 +538,7 @@
             <div class="summary-block">
               <img src="img/products/product1.png" alt="Selected product" class="summary-image" id="summary-image">
               <div class="text-center">
-                <h2 id="summary-product-name"></h2>
+                <h2 class="summary-product-name" id="summary-product-name"></h2>
                 <p id="summary-package"></p>
                 <p id="summary-delivery"></p>
                 <h2 class="summary-price" id="summary-price"></h2>
@@ -561,7 +564,14 @@
             <p>Thank you for your order</p>
             <div class="finish-block">
               <h2>Your purchase:</h2>
-              <img src="img/products/product1.png" alt="Selected product" class="summary-image" id="summary-image">
+              <img
+                src="img/products/product1.png"
+                alt="Selected product"
+                class="summary-image"
+                id="finish-image"
+              >
+              <p id="finish-time-text"></p>
+
         </section>
 
         <!---------- ASIDE BAR WITH PICTURES AND TEXT MESSAGES ---------->
@@ -569,12 +579,16 @@
         <aside class="main-aside">
           <div id="buy-block">
             <h2 class="product-name" id="product-name">Gradiant Amare</h2>
-            <h3>Price</h3>
-            <p class="product-price" id="product-price">21€</p>
-            <h3>Package</h3> <!-- * VER PARA PONER UNA EXPLICACIÓN AQUÍ DE QUÉ ES EL PACKAGE PREMIUM -->
-            <input type="checkbox" class="display-none" id="premium-package"/>
-            <label for="premium-package"><img src="/img/package.png" class="package-image" id="package-image" /></label>
-            <h3>Color</h3>
+            <div class="buy-block-price">
+              <!-- <h3 class="product-price-title">Price</h3> -->
+              <p class="product-price" id="product-price">21<span class="product-price-currency">€</span></p>
+            </div>
+            <h3>Why not our Premium Package?</h3>
+            <label for="premium-package" class="premium-package-container">
+              <input type="checkbox" class="premium-package-checkbox" id="premium-package"/>
+              <img src="/img/package.png" class="package-image" id="package-image" />
+            </label>
+            <h3>Check out other colors for the Gradiant model:</h3>
             <div class="thumbnails-container">
               <div class="thumbnails" data-value="1" data-product data-name="Gradiant Amare">
                 <img

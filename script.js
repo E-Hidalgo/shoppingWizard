@@ -31,7 +31,9 @@ let summaryPackage = document.getElementById("summary-package")
 let summaryDelivery = document.getElementById("summary-delivery")
 let summaryPrice = document.getElementById("summary-price")
 let summaryPriceBreakdown = document.getElementById("price-breakdown")
+let finishImage = document.getElementById("finish-image")
 let finishButton = document.getElementById("finish-button")
+let finishTimeText = document.getElementById("finish-time-text")
 let backBtn = document.getElementById("back")
 let clearBtn = document.getElementById("clear")
 let nextBtn = document.getElementById("next")
@@ -57,6 +59,8 @@ nextBtn.addEventListener("click", nextPage)
 
 /* ------------ GLOBAL VARIABLES ------------ */
 
+let timeStart = new Date()
+let timeFinish = new Date()
 let currentPage = 0
 let currentIndex = -1 // Variable starting in -1 to avoid first page, that being product, out of index.
 let currentProduct = 1 // Variable starting in 1 because the default view includes the product 1
@@ -67,7 +71,8 @@ let selectedProduct = {
   name:"Gradiant Amare",
   price:21,
   packagePrice: 0,
-  package:"Nope, are you sure? Go back and get it!"
+  package:"Nope, are you sure? Go back and get it!",
+  deliveryPrice: 0
 }
 
 /* ------------ FUNCTIONS SECTION ------------ */
@@ -92,6 +97,7 @@ function selectProduct() {
   changePictures()
   productNameBlock.innerHTML = this.dataset.name
   summaryImage.setAttribute("src", `img/products/product${currentProduct}.png`)
+  finishImage.setAttribute("src", `img/products/product${currentProduct}.png`)
   selectedProduct.name = this.dataset.name
   selectedProduct.id = parseInt(this.dataset.value)
 }
@@ -113,7 +119,7 @@ function packagePremiumSelected() {
 function changePrice() {
   if (packageCheckbox.checked === true) {
     let priceWithPackage = productPrice + premiumPackagePrice
-    price.innerHTML = `${priceWithPackage}€`
+    price.innerHTML = `${priceWithPackage}€ <span class="line-trough red-text product-price-currency">${productPrice*2}€</span>`
     selectedProduct.packagePrice = 9
     selectedProduct.package = "Yes! &#x1F609;"
   } else {
@@ -122,6 +128,22 @@ function changePrice() {
     selectedProduct.package = "Nope, are you sure? Go back and get it!"
   }
 }
+
+/* ------------ VALIDATE INPUTS ------------ */
+// ? WORK IN PROGRESS
+
+// pages[currentPage].querySelectorAll("input")
+
+// LOCATE INPUTS IN CURRENT PAGE
+// let prueba3 = pages[1].querySelectorAll("input")
+// console.log(prueba3)
+
+// function prueba5() {
+//   prueba3.forEach((element) => {
+//     element.setAttribute("prueba", "prueba")
+//   })
+// }
+
 
 /* ------------ NAVIGATION ------------ */
 
@@ -163,7 +185,7 @@ function changeImageAside() { // Just for some styling
   currentPage > 2 ? imageAside.setAttribute("src", "img/resources/resource08.jpg") : imageAside.setAttribute("src", "img/resources/resource09.jpg")
 }
 
-function showBagItem() {
+function showBagItem() { // We display a fixed 1 in product bag in the header
   if (currentPage > 0) {
     bagItem.classList.remove("display-none")
   } else {
@@ -201,10 +223,10 @@ function showIndexStatus() {
 
 function showNavBtns() {
   currentPage > 0 ? backBtn.classList.remove("hidden") : backBtn.classList.add("hidden") // Show back button
-  currentPage > 0 ? clearBtn.classList.remove("hidden") : clearBtn.classList.add("hidden") // Show clear button
-  currentPage === 0 || currentPage >= pages.length-2 ? nextBtn.classList.add("hidden") : nextBtn.classList.remove("hidden") // Show next button until Summary page
   currentPage === pages.length-1 ? backBtn.classList.add("hidden") : backBtn.classList.remove("hidden")
+  currentPage > 0 ? clearBtn.classList.remove("hidden") : clearBtn.classList.add("hidden") // Show clear button
   currentPage === pages.length-1 ? clearBtn.classList.add("hidden") : clearBtn.classList.remove("hidden")
+  currentPage === 0 || currentPage >= pages.length-2 ? nextBtn.classList.add("hidden") : nextBtn.classList.remove("hidden") // Show next button until Summary page
 }
 
 /* ------------ CLEAR FORM BUTTON ------------ */
@@ -219,7 +241,6 @@ function clearForm() {
 
 /* ------------ DELIVERY DATE ------------ */
 
-
 function showShippingInfo() {
   let deliveryDateMin = new Date().toLocaleDateString()
   let deliveryDateMax = new Date()
@@ -230,6 +251,7 @@ function showShippingInfo() {
   shippingInfo.classList.remove("display-none")
   selectedProduct.deliveryDateMin = deliveryDateMin
   selectedProduct.deliveryDateMax = deliveryDateMax
+  selectedProduct.deliveryPrice = parseFloat(this.dataset.price)
 }
 
 /* ------------ IS IT A GIFT ------------ */
@@ -238,81 +260,28 @@ function showGiftOptions() {
   giftOptions.classList.toggle("display-none")
 }
 
+/* ------------ FINISH TIME ------------ */
+
+function finishTime() {
+  timeFinish = new Date()
+  finishTimeText.innerHTML = `It took you ${Math.round((((timeFinish-timeStart) % 86400000) % 3600000) / 60000)} minutes to finish your purchase`
+}
+
 /* ------------ REFRESH PRODUCT INFO IN SUMMARY ------------ */
 
 function refreshSelectedProduct() {
   summaryName.innerHTML = selectedProduct.name
   summaryPackage.innerHTML = `<span class="bold">Premium package</span>: ${selectedProduct.package}`
   summaryDelivery.innerHTML = `<span class="bold">Estimate delivery date</span>: between ${selectedProduct.deliveryDateMin} and ${selectedProduct.deliveryDateMax}`
-  summaryPrice.innerHTML = `${selectedProduct.price+selectedProduct.packagePrice}€`
-  summaryPriceBreakdown.innerHTML = `Glasses: ${selectedProduct.price}€ | Package: ${selectedProduct.packagePrice}€`
+  summaryPrice.innerHTML = `${(selectedProduct.price+selectedProduct.packagePrice+selectedProduct.deliveryPrice).toFixed(2)}€`
+  summaryPriceBreakdown.innerHTML = `Glasses: ${selectedProduct.price}€ | Package: ${selectedProduct.packagePrice}€ | Shipping: ${selectedProduct.deliveryPrice}€`
+  finishTime()
 }
-
-
-
 
 
 /* ------------ SELF NOTES ------------ */
 
-// LOCATE INPUTS IN CURRENT PAGE
-let prueba3 = pages[1].querySelectorAll("input")
-// console.log(prueba3)
-
-function prueba5() {
-  prueba3.forEach((elemento) => {
-    elemento.setAttribute("prueba", "prueba")
-  })
-}
-
-
 /* PENDIENTE:
-- Ver cómo guardar campos formulario para luego acceder a ellos para el resumen (Domestika)
-- Ver si es posible localizar coordenadas de un elemento en el DOM (para animación bola punto index, no necesario para este proyeto)
-- Al hacer click en finish hacer un push de los datos del formulario a un objeto que después leo para imprimir en pantalla
-- Valorar animar los bloques para que desaparezcan de forma animada
-- Para thumbnails del main ver ejemplo Amazon: todas llevan de base un borde, y luego una sombra con mousein, que además cambia la imagen
-- Pensar si ocultar barra inferior botones en la pantalla de compra
-- Pensar si añadir un banner o algo de contenido
-- Ver wrap para elementos flex superpuestos al contraer pantalla
-- Valorar añadir un 1 a la bolsa del header si currentPage != 0
-- Valorar cambiar let por const en las búsquedas de elementos del DOM (+ uppercase)
 - Cambiar las imágenes del aside por página
-- Valorar quitar el select de country, poner solo unos pocos, y buscar una forma de que, si la opción elegida es "Mi país no está en esta lista"
-  aparezca un mensaje de que estamos trabajando para enviar a más países. Esto debería invalidar el campo y no dejar continuar.
-*/
-
-
-
-
-/* -- NOTES TO SELF (Carlos) -- */
-/* 
-* --- 1 a todos los div separadores añadirles un data-page ---
-* --- 2 todos los divs están ocultos de forma predeterminada (display none) excepto el primero
-    que tiene además clase active (en CSS por debajo del display none) que lo muestra con un display block ---
-* --- 3 hay una variable currentPage que suma 1 con el botón Next y resta 1 con el Back ---
-* --- 4 metemos en una variable, y luego a un array todos los elementos div por el data-page ---
-* --- 5 los botones lanzan una función para mostrar la página actual: ---
-    --- A) añade o resta +/-1 a la variable currentPage ---
-    --- B) con un for (a ser posible foreach con función flecha) recorre el array y elimina la clase active de todos los elementos ---
-    --- C) añade la clase active para el elemento [currentPage] del array de data-page ---
-* --- (La variable currentPage empieza en 1)? ---
-* --- El botón next dejaría de mostrarse si currentPage === array de data-page ---
-* --- O lo que es lo mismo, se mostraría siempre que currentPage sea 《 array de data-page.length ---
-* --- El botón de ir hacia atrás se mostraría solo si currentPage 》 1 ---
-* --- Para el clear -> función que busque elementos data-type-form y establezca su value a vacío ---
-* Valorar que el botón Next sea un submit con prevent default para guardar los campos (¿value?),
-    y mostrarlos en la página de resumen -> problema sobre qué hacer en ese caso con el back
-* ¿Problema? -> puedes navegar por las secciones pero no se eliminan los datos. Si haces Next hará un submit
-    y en teoría sobreescribe el valor previo del input
-* --- Solo el clear vacía los campos ---
-* --- Creamos un atributo data-type-index para el índice. ---
-* --- Cada vez que damos a Next, una variable currentIndex ---
-    --- (que empieza en 0, ya que aquí hay una página sin bloque de índice, la de producto) suma 1 (o resta si retrocedemos) ---
-* --- Cuando nos movemos, le decimos que elimine la clase active para todos los elementos mayores que currentIndex. ---
-    --- De esa forma todos los índices desde el primero hasta el actual tendrán un estilo destacado para que sepamos en qué paso estamos. ---
-    --- Podemos añadir una clase especial evenMoreActive para el data-type-index = valor de currentIndex que lo destaque más. ---
-* --- Para mostrar la foto del producto usar setAttribute para src del img con template string como `src="img/product${selectedProduct}` ---
-* --- Para mostrarla en el proceso de compra ---
-* --- Hacer una función específica, con un if que mire el valor de currentPage y, si es === 1 (primera página) corre y
-    establece el atributo en base a lo seleccionado ---
+- Valorar que la validación busque inputs con clase "correct"
 */

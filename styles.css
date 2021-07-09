@@ -139,11 +139,34 @@ header {
 .main-product-thumbnail {
   max-width: 3rem;
   padding: 1rem 0;
+  border: 1px solid transparent;
   cursor: pointer;
 }
 
 .main-product-thumbnail:hover {
   border: 1px solid #272728;
+}
+
+.buy-block-price {
+  display: flex;
+  align-items: center;
+}
+
+.product-price-title {
+  margin-right: 1rem;
+}
+
+.product-price {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.product-price-currency {
+  font-size: 1rem;
+}
+
+.product-name {
+  font-family: 'Permanent Marker', cursive;
 }
 
 /* ------------ FORM -------------- */
@@ -175,6 +198,10 @@ select {
 
 .summary-image {
   max-width: 20rem;
+}
+
+.summary-product-name {
+  font-family: 'Permanent Marker', cursive;
 }
 
 .terms-conditions-block {
@@ -220,6 +247,16 @@ select {
   padding-top: 5rem;
 }
 
+.premium-package-container {
+  position: relative;
+}
+
+.premium-package-checkbox {
+  position: absolute;
+  left: 1rem;
+  bottom: 10rem;
+}
+
 .package-image {
   border: 3px solid transparent;
   border-radius: 15px;
@@ -238,6 +275,7 @@ select {
 
 .product-thumbnail {
   width: 3rem;
+  border: 1px solid transparent;
   cursor: pointer;
 }
 
@@ -335,4 +373,12 @@ select {
 
 .text-center {
   text-align: center;
+}
+
+.line-trough {
+  text-decoration: line-through;
+}
+
+.red-text {
+  color: rgb(216, 35, 35)
 }
