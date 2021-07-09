@@ -80,19 +80,19 @@
                   alt="First thumbnail"
                   class="main-product-thumbnail"
                   id="first-thumbnail"
-                  value="1"
+                  data-value="1"
                   data-main-thumbnail>
                 <img src="img/products/product1/product1-2.png"
                   alt="Second thumbnail"
                   class="main-product-thumbnail"
                   id="second-thumbnail"
-                  value="2"
+                  data-value="2"
                   data-main-thumbnail>
                 <img src="img/products/product1/product1-3.png"
                   alt="Third thumbnail"
                   class="main-product-thumbnail"
                   id="third-thumbnail"
-                  value="3"
+                  data-value="3"
                   data-main-thumbnail>
               </div>
               <img src="img/products/product1.png"
@@ -474,33 +474,56 @@
             <!---------- 4th SCREEN ---------->
             <div class="form display-none" id="shipping" data-page>
               <h2>Shipping</h2>
-              <label for="freeShipping">
+              <label for="free-shipping">
                 <input
                   type="radio"
-                  value="freeShipping"
-                  id="freeShipping"
+                  value="free-shipping"
+                  id="free-shipping"
                   name="shipping"
+                  data-price=0
+                  data-time=3
                 />
                 Free Shipping (72H)
               </label>
-              <label for="extraShipping">
+              <label for="extra-shipping">
                 <input
                   type="radio"
-                  value="extraShipping"
-                  id="extraShipping"
+                  value="extra-shipping"
+                  id="extra-shipping"
                   name="shipping"
+                  data-price=4.99
+                  data-time=2
                 />
                 Extra Shipping (48H) 4,99€
               </label>
-              <label for="premiumShipping">
+              <label for="premium-shipping">
                 <input
                   type="radio"
-                  value="premiumShipping"
-                  id="premiumShipping"
+                  value="premium-shipping"
+                  id="premium-shipping"
                   name="shipping"
+                  data-price=9.99
+                  data-time=1
                 />
                 Premium (24H) 9,99€
               </label>
+              <div class="display-none" id="shipping-info">
+                <h3>Your order will arrive:</h3>
+                <h4>ESTIMATE DELIVERY DATE</h4>
+                <p id="delivery-date-text"></p>
+              </div>
+              <label for="gift-checkbox">
+                <input type="checkbox" name="gift-checkbox" id="gift-checkbox">
+                Is it a gift?
+              </label>
+              <div class="display-none" id="gift-options">
+                <label for="gift-message">Gift message
+                  <textarea name="gift-message" id="gift-message" rows="10" cols="50"></textarea>
+                </label>
+                <label for="gift-wrapper-image">Gift wrapper image
+                  <input type="file" id="gift-wrapper-image" name="gift-wrapper-image">
+                </label>
+              </div>
             </div>
           </form>
         </section>
@@ -522,49 +545,49 @@
             </select>
             <h3>Color</h3>
             <div class="thumbnails-container">
-              <div class="thumbnails" value="1" data-product data-name="Gradiant Amare">
+              <div class="thumbnails" data-value="1" data-product data-name="Gradiant Amare">
                 <img
                   src="/img/products/product1.png"
                   alt="Product 1"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="2" data-product data-name="Gradiant Calhoun">
+              <div class="thumbnails" data-value="2" data-product data-name="Gradiant Calhoun">
                 <img
                   src="/img/products/product2.png"
                   alt="Product 2"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="3" data-product data-name="Gradiant Crystal">
+              <div class="thumbnails" data-value="3" data-product data-name="Gradiant Crystal">
                 <img
                   src="/img/products/product3.png"
                   alt="Product 3"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="4" data-product data-name="Gradiant Curren">
+              <div class="thumbnails" data-value="4" data-product data-name="Gradiant Curren">
                 <img
                   src="/img/products/product4.png"
                   alt="Product 4"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="5" data-product data-name="Gradiant Pogo">
+              <div class="thumbnails" data-value="5" data-product data-name="Gradiant Pogo">
                 <img
                   src="/img/products/product5.png"
                   alt="Product 5"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="6" data-product data-name="Gradiant Salina">
+              <div class="thumbnails" data-value="6" data-product data-name="Gradiant Salina">
                 <img
                   src="/img/products/product6.png"
                   alt="Product 6"
                   class="product-thumbnail"
                 />
               </div>
-              <div class="thumbnails" value="7" data-product data-name="Gradiant Vulcano">
+              <div class="thumbnails" data-value="7" data-product data-name="Gradiant Vulcano">
                 <img
                   src="/img/products/product7.png"
                   alt="Product 7"
@@ -574,7 +597,7 @@
             </div>
             <button class="buy-button" id="buy-button">Buy</button>
           </div>
-          <img src="img/resources/resource06.png" alt="Enjoy our glasses" class="aside-product display-none" id="image-aside">
+          <img src="img/resources/resource09.jpg" alt="Enjoy our glasses" class="aside-product display-none" id="image-aside">
         </aside>
       </article>
 

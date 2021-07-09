@@ -15,19 +15,30 @@ let productsAside = document.querySelectorAll("[data-product]")
 let buyBtn = document.getElementById("buy-button")
 let imageAside = document.getElementById("image-aside")
 let form = document.getElementById("userForm")
+let freeShipping = document.getElementById("free-shipping")
+let extraShipping = document.getElementById("extra-shipping")
+let premiumShipping = document.getElementById("premium-shipping")
+let shippingInfo = document.getElementById("shipping-info")
+let deliveryDateText = document.getElementById("delivery-date-text")
+let isItAGift = document.getElementById("gift-checkbox")
+let giftOptions = document.getElementById("gift-options")
 let backBtn = document.getElementById("back")
 let clearBtn = document.getElementById("clear")
 let nextBtn = document.getElementById("next")
 
 /* ------------ EVENT LISTENERS ------------ */
 
-for (let i = 0; i < productsAside.length; i++) {
-  productsAside[i].addEventListener("click", selectProduct)
-}
-for (let i = 0; i < productMainThumbnail.length; i++) {
-  productMainThumbnail[i].addEventListener("click", changeMainPicture)
-}
+productsAside.forEach((product) => {
+  product.addEventListener("click", selectProduct)
+})
+productMainThumbnail.forEach((product) => {
+  product.addEventListener("mouseenter", changeMainPicture)
+})
 buyBtn.addEventListener("click", nextPage)
+freeShipping.addEventListener("change", showShippingInfo)
+extraShipping.addEventListener("change", showShippingInfo)
+premiumShipping.addEventListener("change", showShippingInfo)
+isItAGift.addEventListener("click", showGiftOptions)
 backBtn.addEventListener("click", previousPage)
 clearBtn.addEventListener("click", clearForm)
 nextBtn.addEventListener("click", nextPage)
@@ -35,29 +46,28 @@ nextBtn.addEventListener("click", nextPage)
 /* ------------ GLOBAL VARIABLES ------------ */
 
 let currentPage = 0
-let currentIndex = -1 // Variable starting in -1 to avoid first page being product, out of index.
+let currentIndex = -1 // Variable starting in -1 to avoid first page, that being product, out of index.
 let currentProduct = 1 // Variable starting in 1 because the default view includes the product 1
 let thisElement
 let currentPrice
-let currentTime = new Date()
 
 /* ------------ FUNCTIONS ------------ */
 
 /* ------------ CHANGE MAIN PICTURE ------------ */
 
 function changeMainPicture() {
-  let value = this.getAttribute("value")
+  let value = this.dataset.value
   mainProduct.setAttribute("src", `img/products/product${currentProduct}/product${currentProduct}-${value}.png`)
 }
 
 /* ------------ SELECT PRODUCT AND CHANGE PICTURES ------------ */
 
 function selectProduct() {
-  let value = this.getAttribute("value")
+  let value = this.dataset.value
   thisElement = this
   currentProduct = value
   changePictures()
-  changeProductName()
+  productNameBlock.innerHTML = this.dataset.name
 }
 
 function changePictures() {
@@ -65,12 +75,6 @@ function changePictures() {
   firstThumbnail.setAttribute("src", `img/products/product${currentProduct}/product${currentProduct}-1.png`)
   secondThumbnail.setAttribute("src", `img/products/product${currentProduct}/product${currentProduct}-2.png`)
   thirdThumbnail.setAttribute("src", `img/products/product${currentProduct}/product${currentProduct}-3.png`)
-}
-
-/* ------------ PRODUCT NAME ------------ */
-
-function changeProductName() {
-  productNameBlock.innerHTML = thisElement.dataset.name
 }
 
 /* ------------ PRICE ------------ */
@@ -99,11 +103,31 @@ function movePage() {
 }
 
 function hidPages() {
-  for (let i = 0; i < pages.length; i++) {
-    pages[i].classList.add("display-none")
-  }
+  pages.forEach((page) => {
+    page.classList.add("display-none")
+  })
 }
 
+function showBuyBlock() {
+  currentPage > 0 ? buyBlock.classList.add("display-none") : buyBlock.classList.remove("display-none")
+}
+
+function showImageAside() {
+  currentPage > 0 ? imageAside.classList.remove("display-none") : imageAside.classList.add("display-none")
+}
+
+function changeImageAside() { // Just for some styling
+  currentPage > 2 ? imageAside.setAttribute("src", "img/resources/resource08.jpg") : imageAside.setAttribute("src", "img/resources/resource09.jpg")
+}
+
+function navigation() { // We use this function to navigate the site, displaying the elements or hiding them
+  showIndex()
+  showIndexStatus()
+  showNavBtns()
+  showBuyBlock()
+  showImageAside()
+  changeImageAside()
+}
 
 /* ------------ INDEX ------------ */
 
@@ -139,27 +163,23 @@ function clearForm() {
   movePage()
 }
 
-// ! ORDENAR ESTAS FUNCIONES
+/* ------------ DELIVERY DATE ------------ */
 
-function showBuyBlock() {
-  currentPage > 0 ? buyBlock.classList.add("display-none") : buyBlock.classList.remove("display-none")
+
+function showShippingInfo() {
+  let deliveryDateMin = new Date().toLocaleDateString()
+
+  let deliveryDateMax = new Date();
+  deliveryDateMax.setDate(deliveryDateMax.getDate() + this.dataset.time)
+  deliveryDateMax = deliveryDateMax.toLocaleDateString()
+  deliveryDateText.innerHTML = `Between <span class="bold">${deliveryDateMin}</span> and <span class="bold">${deliveryDateMax}</span>`
+  shippingInfo.classList.remove("display-none")
 }
 
-function showImageAside() {
-  currentPage > 0 ? imageAside.classList.remove("display-none") : imageAside.classList.add("display-none")
-}
+/* ------------ IS IT A GIFT ------------ */
 
-function changeImageAside() { // Just for some styling
-  currentPage > 2 ? imageAside.setAttribute("src", "img/resources/resource05.png") : imageAside.setAttribute("src", "img/resources/resource06.png")
-}
-
-function navigation() { // We use this function to navigate the site, displaying the elements or hiding them
-  showIndex()
-  showIndexStatus()
-  showNavBtns()
-  showBuyBlock()
-  showImageAside()
-  changeImageAside()
+function showGiftOptions() {
+  giftOptions.classList.toggle("display-none")
 }
 
 
@@ -167,24 +187,30 @@ function navigation() { // We use this function to navigate the site, displaying
 
 
 
+/* ------------ SELF NOTES ------------ */
 
+// LOCATE INPUTS IN CURRENT PAGE
+let prueba3 = pages[1].querySelectorAll("input")
+// console.log(prueba3)
 
-
-
-
+function prueba5() {
+  prueba3.forEach((elemento) => {
+    elemento.setAttribute("prueba", "prueba")
+  })
+}
 
 
 /* PENDIENTE:
-- Cambiar el for por foreach en hidPages, con =>
 - Ver cómo guardar campos formulario para luego acceder a ellos para el resumen (Domestika)
-- Ver si es posible localizar coordenadas de un elemento en el DOM
+- Ver si es posible localizar coordenadas de un elemento en el DOM (para animación bola punto index, no necesario para este proyeto)
 - Al hacer click en finish hacer un push de los datos del formulario a un objeto que después leo para imprimir en pantalla
 - Valorar animar los bloques para que desaparezcan de forma animada
 - Para thumbnails del main ver ejemplo Amazon: todas llevan de base un borde, y luego una sombra con mousein, que además cambia la imagen
-!- OPTIMIZAR IMÁGENES
 - Pensar si ocultar barra inferior botones en la pantalla de compra
+- Pensar si añadir un banner o algo de contenido
 - Ver wrap para elementos flex superpuestos al contraer pantalla
-- Refactorizar los value como atributo suelto a data-value
+- Valorar añadir un 1 a la bolsa del header si currentPage != 0
+- Valorar cambiar let por const en las búsquedas de elementos del DOM (+ uppercase)
 */
 
 
