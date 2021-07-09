@@ -6,13 +6,64 @@ let inputs = document.querySelectorAll("#miForm input");
 
 // --------- EVENTS --------
 
-clearBtn.addEventListener("click", clear);
+clearBtn.addEventListener("click", () => {
+  form.reset();
+  product.style.display = "flex";
+  profile.style.display = "none";
+  address.style.display = "none";
+  shipping.style.display = "none";
+  finish.style.display = "none";
+  thankYou.style.display = "none";
+  topNav.style.display = "none";
+  actualPage = "product";
+});
 
-// --------- CLEAR --------Button
 
-function clear() {
-  document.getElementById("clear-button").reset();
-}
+let mainImg = document.querySelector("#mainImage");
+let img1 = document.querySelector("#image1");
+let img2 = document.querySelector("#image2");
+let img3 = document.querySelector("#image3");
+
+let currentProduct;
+
+let model1 = document.querySelector("#model1")
+
+model1.addEventListener("click", ()=> {
+mainImg.src = "/img/gradiant_amare/product1-side.png"
+img1.src = "/img/gradiant_amare/product1-side.png"
+img2.src = "/img/gradiant_amare/product1-front.png"
+img3.src = "/img/gradiant_amare/product1-right.png"
+})
+
+let model2 = document.querySelector("#model2")
+
+model2.addEventListener("click", ()=> {
+  mainImg.src = "/img/gradiant_calhoun/product2-side.png"
+  img1.src = "/img/gradiant_calhoun/product2-side.png"
+  img2.src = "/img/gradiant_calhoun/product2-front.png"
+  img3.src = "/img/gradiant_calhoun/product2-right.png"
+  })
+
+
+let model3 = document.querySelector("#model3")
+let model4 = document.querySelector("#model4")
+let model5 = document.querySelector("#model5")
+let model6 = document.querySelector("#model6")
+let model7 = document.querySelector("#model7")
+
+img1.addEventListener("click", () => {
+  mainImg.src = "/img/gradiant_amare/product1-side.png";
+  
+})
+
+
+img2.addEventListener("click", () => {
+  mainImage.src = "/img/gradiant_amare/product1-front.png";
+})
+
+img3.addEventListener("click", () => {
+  mainImage.src = "/img/gradiant_amare/product1-right.png";
+})
 
 //------- EXPRESSIONS --------
 let expressions = {
@@ -32,42 +83,23 @@ let expressions = {
 // ------------ VALIDATING FUNCTION----------
 
 
-// let validateField = (expression, input, field) => {
-//   if (expression.test(input.value)) {
-//     document.getElementById(`${field}`).classList.remove("incorrect");
-//     document.getElementById(`${field}`).classList.add("correct");
-//     document
-//       .getElementById(`${field}IncorrectText`)
-//       .classList.add("displayNone");
-//   } else {
-//     document.getElementById(`${field}`).classList.add("incorrect");
-//     document
-//       .getElementById(`${field}IncorrectText`)
-//       .classList.remove("displayNone");
-//   }
-// };
-
-
-let validateForm = (e) => {
-  switch (
-    e.target.name // EVENTO TARGETEA AL NOMBRE
-  ) {
-    case "username":
-      validateField(expressions.username, e.target, "username");
+  let validateForm = (event) => {
+  switch (event.target.name) // EVENTO TARGETEA AL NOMBRE
+    {
+      case "username":
+      validateField(expressions.username, event.target, "username");
 
       // function validateField() {
       //   if (expression.test(input.value))
-
-
       
       break;
 
     case "email":
-      validateField(expressions.email, e.target, "email");
+      validateField(expressions.email, event.target, "email");
       break;
 
     case "password":
-      validateField(expressions.password, e.target, "password");
+      validateField(expressions.password, event.target, "password");
       validateConfirmPassword("password");
       break;
 
@@ -76,11 +108,11 @@ let validateForm = (e) => {
       break;
 
     case "firstName":
-      validateField(expressions.firstName, e.target, "firstName");
+      validateField(expressions.firstName, event.target, "firstName");
       break;
 
     case "lastName":
-      validateField(expressions.lastName, e.target, "lastName");
+      validateField(expressions.lastName, event.target, "lastName");
       break;
 
     //case "birthday":
@@ -89,22 +121,22 @@ let validateForm = (e) => {
       //break;
 
     case "address1":
-      validateField(expressions.address, e.target, "address1");
+      validateField(expressions.address, event.target, "address1");
       break;
 
     case "address2":
-      validateField(expressions.address, e.target, "address2");
+      validateField(expressions.address, event.target, "address2");
       break;
 
     case "postalCode":
-      validateField(expressions.postalCode, e.target, "postalCode");
+      validateField(expressions.postalCode, event.target, "postalCode");
       break;
 
     case "phone":
-      validateField(expressions.phone, e.target, "phone");
+      validateField(expressions.phone, event.target, "phone");
       break;
-  }
-};
+    }
+  };
 
 //let validateDate = () => {}
 
@@ -148,8 +180,8 @@ inputs.forEach((input) => {
   input.addEventListener("blur", validateForm); // WHEN CLICK OUTSIDE
 });
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 });
 
 // -------- Validation form
@@ -221,3 +253,10 @@ function moveBackward() {
     actualPage = "product";
   }
 }
+
+
+
+
+// ------------ REFRESH AT 5 MIN ------------
+
+setInterval(()=> {window.location.reload()}, 300000)

@@ -12,6 +12,13 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+article {
+  margin: 50px;
+}
+
+aside {
+  margin-top: 30px;
+}
 /* HEADER */
 
 header {
