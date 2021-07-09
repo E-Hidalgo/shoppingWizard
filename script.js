@@ -47,6 +47,15 @@ model2.addEventListener("click", () => {
 });
 
 let model3 = document.querySelector("#model3");
+
+model3.addEventListener("click", () => {
+  currentModel = 3;
+  mainImg.src = "/img/gradiant_crystal/product3-side.png";
+  img1.src = "/img/gradiant_crystal/product3-side.png";
+  img2.src = "/img/gradiant_crystal/product3-front.png";
+  img3.src = "/img/gradiant_crystal/product3-right.png";
+});
+
 let model4 = document.querySelector("#model4");
 let model5 = document.querySelector("#model5");
 let model6 = document.querySelector("#model6");
@@ -56,11 +65,28 @@ let model7 = document.querySelector("#model7");
 
 img1.addEventListener("click", showImg);
 
+// function showImg() {
+//   switch (currentModel) {
+//     case 1:
+//       mainImage.src = "/img/gradiant_amare/product1-side.png";
+//       break;
+//     case 2:
+//       mainImage.src = "/img/gradiant_calhoun/product2-side.png";
+//       break;
+//     case 3:
+//       mainImage.src = "/img/gradiant_crystal/product3-side.png";
+//       break;
+//     default:
+//       break;
+//   }
+
 function showImg() {
   if (currentModel == 1) {
     mainImage.src = "/img/gradiant_amare/product1-side.png";
   } else if (currentModel == 2) {
     mainImage.src = "/img/gradiant_calhoun/product2-side.png";
+  } else if (currentModel == 3) {
+    mainImage.src = "/img/gradiant_crystal/product3-side.png";
   }
 }
 
@@ -69,6 +95,8 @@ img2.addEventListener("click", () => {
     mainImage.src = "/img/gradiant_amare/product1-front.png";
   } else if (currentModel == 2) {
     mainImage.src = "/img/gradiant_calhoun/product2-front.png";
+  } else if (currentModel == 3) {
+    mainImage.src = "img/gradiant_crystal/product3-front.png";
   }
 });
 
@@ -77,6 +105,8 @@ img3.addEventListener("click", () => {
     mainImage.src = "/img/gradiant_amare/product1-right.png";
   } else if (currentModel == 2) {
     mainImage.src = "/img/gradiant_calhoun/product2-right.png";
+  } else if (currentModel == 3) {
+    mainImage.src = "/img/gradiant_crystal/product3-right.png";
   }
 });
 
