@@ -3,8 +3,13 @@
 let clearBtn = document.getElementById("clear-button");
 let form = document.getElementById("miForm");
 let inputs = document.querySelectorAll("#miForm input");
+let mainImg = document.querySelector("#mainImage");
+let img1 = document.querySelector("#image1");
+let img2 = document.querySelector("#image2");
+let img3 = document.querySelector("#image3");
+let currentProduct;
 
-// --------- EVENTS --------
+// --------- RESET FORM AND GO BACK TO FIRST PAGE EVENT --------
 
 clearBtn.addEventListener("click", () => {
   form.reset();
@@ -18,52 +23,62 @@ clearBtn.addEventListener("click", () => {
   actualPage = "product";
 });
 
+// ----- SWITCH IMAGES BY CLICKING DIFFERENT MODEL ------
+let currentModel = 1;
 
-let mainImg = document.querySelector("#mainImage");
-let img1 = document.querySelector("#image1");
-let img2 = document.querySelector("#image2");
-let img3 = document.querySelector("#image3");
+let model1 = document.querySelector("#model1");
 
-let currentProduct;
-
-let model1 = document.querySelector("#model1")
-
-model1.addEventListener("click", ()=> {
-mainImg.src = "/img/gradiant_amare/product1-side.png"
-img1.src = "/img/gradiant_amare/product1-side.png"
-img2.src = "/img/gradiant_amare/product1-front.png"
-img3.src = "/img/gradiant_amare/product1-right.png"
-})
-
-let model2 = document.querySelector("#model2")
-
-model2.addEventListener("click", ()=> {
-  mainImg.src = "/img/gradiant_calhoun/product2-side.png"
-  img1.src = "/img/gradiant_calhoun/product2-side.png"
-  img2.src = "/img/gradiant_calhoun/product2-front.png"
-  img3.src = "/img/gradiant_calhoun/product2-right.png"
-  })
-
-
-let model3 = document.querySelector("#model3")
-let model4 = document.querySelector("#model4")
-let model5 = document.querySelector("#model5")
-let model6 = document.querySelector("#model6")
-let model7 = document.querySelector("#model7")
-
-img1.addEventListener("click", () => {
+model1.addEventListener("click", () => {
+  currentModel = 1;
   mainImg.src = "/img/gradiant_amare/product1-side.png";
-  
-})
+  img1.src = "/img/gradiant_amare/product1-side.png";
+  img2.src = "/img/gradiant_amare/product1-front.png";
+  img3.src = "/img/gradiant_amare/product1-right.png";
+});
 
+let model2 = document.querySelector("#model2");
+
+model2.addEventListener("click", () => {
+  currentModel = 2;
+  mainImg.src = "/img/gradiant_calhoun/product2-side.png";
+  img1.src = "/img/gradiant_calhoun/product2-side.png";
+  img2.src = "/img/gradiant_calhoun/product2-front.png";
+  img3.src = "/img/gradiant_calhoun/product2-right.png";
+});
+
+let model3 = document.querySelector("#model3");
+let model4 = document.querySelector("#model4");
+let model5 = document.querySelector("#model5");
+let model6 = document.querySelector("#model6");
+let model7 = document.querySelector("#model7");
+
+//  -------- CHANGE THEE VIEW IN EACH MODEL ------
+
+img1.addEventListener("click", showImg);
+
+function showImg() {
+  if (currentModel == 1) {
+    mainImage.src = "/img/gradiant_amare/product1-side.png";
+  } else if (currentModel == 2) {
+    mainImage.src = "/img/gradiant_calhoun/product2-side.png";
+  }
+}
 
 img2.addEventListener("click", () => {
-  mainImage.src = "/img/gradiant_amare/product1-front.png";
-})
+  if (currentModel == 1) {
+    mainImage.src = "/img/gradiant_amare/product1-front.png";
+  } else if (currentModel == 2) {
+    mainImage.src = "/img/gradiant_calhoun/product2-front.png";
+  }
+});
 
 img3.addEventListener("click", () => {
-  mainImage.src = "/img/gradiant_amare/product1-right.png";
-})
+  if (currentModel == 1) {
+    mainImage.src = "/img/gradiant_amare/product1-right.png";
+  } else if (currentModel == 2) {
+    mainImage.src = "/img/gradiant_calhoun/product2-right.png";
+  }
+});
 
 //------- EXPRESSIONS --------
 let expressions = {
@@ -82,35 +97,9 @@ let expressions = {
 
 // ------------ VALIDATING FUNCTION----------
 
-<<<<<<< HEAD
-
-  let validateForm = (event) => {
-  switch (event.target.name) // EVENTO TARGETEA AL NOMBRE
-    {
-      case "username":
-      validateField(expressions.username, event.target, "username");
-
-      // function validateField() {
-      //   if (expression.test(input.value))
-      
-// let validateField = (expression, input, field) => {
-//   if (expression.test(input.value)) {
-//     document.getElementById(`${field}`).classList.remove("incorrect");
-//     document.getElementById(`${field}`).classList.add("correct");
-//     document
-//       .getElementById(`${field}IncorrectText`)
-//       .classList.add("displayNone");
-//   } else {
-//     document.getElementById(`${field}`).classList.add("incorrect");
-//     document
-//       .getElementById(`${field}IncorrectText`)
-//       .classList.remove("displayNone");
-//   }
-// };
-
-let validateForm = (e) => {
+let validateForm = (event) => {
   switch (
-    e.target.name // EVENTO TARGETEA AL NOMBRE
+    event.target.name // EVENTO TARGETEA AL NOMBRE
   ) {
     case "username":
       validateField(expressions.username, e.target, "username");
@@ -161,10 +150,8 @@ let validateForm = (e) => {
     case "phone":
       validateField(expressions.phone, event.target, "phone");
       break;
-    }
-  };
-
-//let validateDate = () => {}
+  }
+};
 
 let validateConfirmPassword = (field) => {
   let inputPassword = document.getElementById("password");
@@ -233,23 +220,23 @@ function moveForward() {
   if (actualPage == "product") {
     product.style.display = "none";
     profile.style.display = "flex";
-    document.getElementById('profileBall').classList.add("ballBlack");
+    document.getElementById("profileBall").classList.add("ballBlack");
     topNav.style.display = "flex";
     actualPage = "profile";
   } else if (actualPage == "profile") {
     profile.style.display = "none";
     address.style.display = "flex";
-    document.getElementById('addressBall').classList.add("ballBlack");
+    document.getElementById("addressBall").classList.add("ballBlack");
     actualPage = "address";
   } else if (actualPage == "address") {
     address.style.display = "none";
     shipping.style.display = "flex";
-    document.getElementById('shippingBall').classList.add("ballBlack");
+    document.getElementById("shippingBall").classList.add("ballBlack");
     actualPage = "shipping";
   } else if (actualPage == "shipping") {
     shipping.style.display = "none";
     finish.style.display = "flex";
-    document.getElementById('finishBall').classList.add("ballBlack");
+    document.getElementById("finishBall").classList.add("ballBlack");
     actualPage = "finish";
   } else if (actualPage == "finish") {
     finish.style.display = "none";
@@ -263,22 +250,22 @@ function moveBackward() {
   if (actualPage == "thankYou") {
     thankYou.style.display = "none";
     finish.style.display = "flex";
-    document.getElementById('finishBall').classList.remove("ballBlack");
+    document.getElementById("finishBall").classList.remove("ballBlack");
     actualPage = "finish";
   } else if (actualPage == "finish") {
     finish.style.display = "none";
     shipping.style.display = "flex";
-    document.getElementById('shippingBall').classList.remove("ballBlack");
+    document.getElementById("shippingBall").classList.remove("ballBlack");
     actualPage = "shipping";
   } else if (actualPage == "shipping") {
     shipping.style.display = "none";
     address.style.display = "flex";
-    document.getElementById('addressBall').classList.remove("ballBlack");
+    document.getElementById("addressBall").classList.remove("ballBlack");
     actualPage = "address";
   } else if (actualPage == "address") {
     address.style.display = "none";
     profile.style.display = "flex";
-    document.getElementById('profileBall').classList.remove("ballBlack");
+    document.getElementById("profileBall").classList.remove("ballBlack");
     actualPage = "profile";
   } else if (actualPage == "profile") {
     profile.style.display = "none";
@@ -288,9 +275,8 @@ function moveBackward() {
   }
 }
 
-
-
-
 // ------------ REFRESH AT 5 MIN ------------
 
-setInterval(()=> {window.location.reload()}, 300000)
+setInterval(() => {
+  window.location.reload();
+}, 300000);
