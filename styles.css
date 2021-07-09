@@ -94,6 +94,10 @@ header {
   background-color: black;
 }
 
+.ballBlack{
+  background-color: black;
+}
+
 .centerBall {
   display: flex;
   flex-direction: column;
@@ -104,11 +108,9 @@ header {
 
 .thumbNail {
   width: 50px;
- 
 }
 .thumbNail:hover {
   border: 2px solid black;
-  
 }
 
 /* --------- ASIDE BAR -------- */
