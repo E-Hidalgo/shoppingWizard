@@ -40,8 +40,11 @@
             <img
               class="shopping-bag"
               src="/img/shopping-bag.svg"
-              alt="shopping cart"
-            />
+              alt="shopping cart">
+              <div class="item-container-shopping-bag display-none" id="item-container-shopping-bag">
+                <p class="item-number-shopping-bag">1</p>
+              </div>
+          </img>
           </li>
         </ul>
       </nav>
@@ -526,6 +529,39 @@
               </div>
             </div>
           </form>
+          <!---------- 5th SCREEN ---------->
+          <div class="display-none" data-page>
+            <h2>Summary</h2>
+            <div class="summary-block">
+              <img src="img/products/product1.png" alt="Selected product" class="summary-image" id="summary-image">
+              <div class="text-center">
+                <h2 id="summary-product-name"></h2>
+                <p id="summary-package"></p>
+                <p id="summary-delivery"></p>
+                <h2 class="summary-price" id="summary-price"></h2>
+                <p class="price-breakdown" id="price-breakdown"></p>
+              </div>
+            </div>
+            <div class="terms-conditions-block">
+              <label for="terms-conditions-checkbox">
+                <input
+                type="checkbox"
+                name="terms-conditions-checkbox"
+                id="terms-conditions-checkbox"
+                required
+                > I have read and I accept the terms and conditions
+              </label>
+            </div>
+            <div class="finish-button-container"><button class="finish-button" id="finish-button">Buy now</button></div>
+          </div>
+          <!---------- 6th SCREEN ---------->
+          <div class="display-none" data-page>
+            <h2>Finish!</h2>
+            <h1>Your order is complete! &#x1F389;</h1>
+            <p>Thank you for your order</p>
+            <div class="finish-block">
+              <h2>Your purchase:</h2>
+              <img src="img/products/product1.png" alt="Selected product" class="summary-image" id="summary-image">
         </section>
 
         <!---------- ASIDE BAR WITH PICTURES AND TEXT MESSAGES ---------->
@@ -534,15 +570,10 @@
           <div id="buy-block">
             <h2 class="product-name" id="product-name">Gradiant Amare</h2>
             <h3>Price</h3>
-            <p class="productPrice" id="productPrice">21€</p>
+            <p class="product-price" id="product-price">21€</p>
             <h3>Package</h3> <!-- * VER PARA PONER UNA EXPLICACIÓN AQUÍ DE QUÉ ES EL PACKAGE PREMIUM -->
-            <select id="package" required>
-              <option value="" selected disabled hidden>
-                Choose your package
-              </option>
-              <option value="Regular package">Regular package</option>
-              <option value="Special package">Special package</option>
-            </select>
+            <input type="checkbox" class="display-none" id="premium-package"/>
+            <label for="premium-package"><img src="/img/package.png" class="package-image" id="package-image" /></label>
             <h3>Color</h3>
             <div class="thumbnails-container">
               <div class="thumbnails" data-value="1" data-product data-name="Gradiant Amare">
@@ -630,11 +661,11 @@
         </ul>
       </nav>
       <nav class="socialFooter">
-        <li><img src="\img\Icons\facebook_b.webp" alt="Facebook icon" /></li>
-        <li><img src="\img\Icons\twitter_b.webp" alt="Twiter icon" /></li>
-        <li><img src="img\Icons\instagram_b.webp" alt="Instagram icon" /></li>
-        <li><img src="\img\Icons\tiktok_b.webp" alt="Instagram icon" /></li>
-        <li><img src="\img\Icons\youtube_b.webp" alt="Youtube icon" /></li>
+        <li><i class="fab fa-facebook-f"></i></li>
+        <li><i class="fab fa-twitter"></i></li>
+        <li><i class="fab fa-instagram"></i></li>
+        <li><i class="fab fa-tiktok"></i></li>
+        <li><i class="fab fa-youtube"></i></li>
       </nav>
     </footer>
   </body>

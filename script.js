@@ -1,5 +1,6 @@
 /* ------------ SELECT DOM ELEMENTS ------------ */
 
+let bagItem = document.getElementById("item-container-shopping-bag")
 let pages = document.querySelectorAll("[data-page]")
 let indexBlock = document.getElementById("shopping-index")
 let indexElements = document.querySelectorAll("[data-index]")
@@ -10,7 +11,9 @@ let thirdThumbnail = document.getElementById("third-thumbnail")
 let buyBlock = document.getElementById("buy-block")
 let productMainThumbnail = document.querySelectorAll("[data-main-thumbnail]")
 let productNameBlock = document.getElementById("product-name")
-let price = document.getElementById("productPrice")
+let price = document.getElementById("product-price")
+let packageCheckbox = document.getElementById("premium-package")
+let packageImage = document.getElementById("package-image")
 let productsAside = document.querySelectorAll("[data-product]")
 let buyBtn = document.getElementById("buy-button")
 let imageAside = document.getElementById("image-aside")
@@ -22,6 +25,13 @@ let shippingInfo = document.getElementById("shipping-info")
 let deliveryDateText = document.getElementById("delivery-date-text")
 let isItAGift = document.getElementById("gift-checkbox")
 let giftOptions = document.getElementById("gift-options")
+let summaryImage = document.getElementById("summary-image")
+let summaryName = document.getElementById("summary-product-name")
+let summaryPackage = document.getElementById("summary-package")
+let summaryDelivery = document.getElementById("summary-delivery")
+let summaryPrice = document.getElementById("summary-price")
+let summaryPriceBreakdown = document.getElementById("price-breakdown")
+let finishButton = document.getElementById("finish-button")
 let backBtn = document.getElementById("back")
 let clearBtn = document.getElementById("clear")
 let nextBtn = document.getElementById("next")
@@ -34,11 +44,13 @@ productsAside.forEach((product) => {
 productMainThumbnail.forEach((product) => {
   product.addEventListener("mouseenter", changeMainPicture)
 })
+packageCheckbox.addEventListener("click", packagePremiumSelected)
 buyBtn.addEventListener("click", nextPage)
 freeShipping.addEventListener("change", showShippingInfo)
 extraShipping.addEventListener("change", showShippingInfo)
 premiumShipping.addEventListener("change", showShippingInfo)
 isItAGift.addEventListener("click", showGiftOptions)
+finishButton.addEventListener("click", nextPage)
 backBtn.addEventListener("click", previousPage)
 clearBtn.addEventListener("click", clearForm)
 nextBtn.addEventListener("click", nextPage)
@@ -48,10 +60,23 @@ nextBtn.addEventListener("click", nextPage)
 let currentPage = 0
 let currentIndex = -1 // Variable starting in -1 to avoid first page, that being product, out of index.
 let currentProduct = 1 // Variable starting in 1 because the default view includes the product 1
-let thisElement
-let currentPrice
+let productPrice = 21 // General base price for all products
+let premiumPackagePrice = 9
+let selectedProduct = {
+  id:1,
+  name:"Gradiant Amare",
+  price:21,
+  packagePrice: 0,
+  package:"Nope, are you sure? Go back and get it!"
+}
 
-/* ------------ FUNCTIONS ------------ */
+/* ------------ FUNCTIONS SECTION ------------ */
+
+/* ------------ RECHARGE PAGE AFTER 5 MIN ------------ */
+
+setInterval(function() {
+    window.location.reload();
+}, 300000); // 300000 miliseconds = 300 seconds = 5 minutes
 
 /* ------------ CHANGE MAIN PICTURE ------------ */
 
@@ -63,11 +88,12 @@ function changeMainPicture() {
 /* ------------ SELECT PRODUCT AND CHANGE PICTURES ------------ */
 
 function selectProduct() {
-  let value = this.dataset.value
-  thisElement = this
-  currentProduct = value
+  currentProduct = this.dataset.value
   changePictures()
   productNameBlock.innerHTML = this.dataset.name
+  summaryImage.setAttribute("src", `img/products/product${currentProduct}.png`)
+  selectedProduct.name = this.dataset.name
+  selectedProduct.id = parseInt(this.dataset.value)
 }
 
 function changePictures() {
@@ -79,7 +105,23 @@ function changePictures() {
 
 /* ------------ PRICE ------------ */
 
+function packagePremiumSelected() {
+  packageImage.classList.toggle("package-image-active")
+  changePrice()
+}
 
+function changePrice() {
+  if (packageCheckbox.checked === true) {
+    let priceWithPackage = productPrice + premiumPackagePrice
+    price.innerHTML = `${priceWithPackage}€`
+    selectedProduct.packagePrice = 9
+    selectedProduct.package = "Yes! &#x1F609;"
+  } else {
+    price.innerHTML = `${productPrice}€`
+    selectedProduct.packagePrice = 0
+    selectedProduct.package = "Nope, are you sure? Go back and get it!"
+  }
+}
 
 /* ------------ NAVIGATION ------------ */
 
@@ -98,6 +140,7 @@ function previousPage() {
 }
 
 function movePage() {
+  refreshSelectedProduct()
   hidPages()
   pages[currentPage].classList.remove("display-none")
 }
@@ -120,6 +163,14 @@ function changeImageAside() { // Just for some styling
   currentPage > 2 ? imageAside.setAttribute("src", "img/resources/resource08.jpg") : imageAside.setAttribute("src", "img/resources/resource09.jpg")
 }
 
+function showBagItem() {
+  if (currentPage > 0) {
+    bagItem.classList.remove("display-none")
+  } else {
+    bagItem.classList.add("display-none")
+  }
+}
+
 function navigation() { // We use this function to navigate the site, displaying the elements or hiding them
   showIndex()
   showIndexStatus()
@@ -127,6 +178,7 @@ function navigation() { // We use this function to navigate the site, displaying
   showBuyBlock()
   showImageAside()
   changeImageAside()
+  showBagItem()
 }
 
 /* ------------ INDEX ------------ */
@@ -150,7 +202,9 @@ function showIndexStatus() {
 function showNavBtns() {
   currentPage > 0 ? backBtn.classList.remove("hidden") : backBtn.classList.add("hidden") // Show back button
   currentPage > 0 ? clearBtn.classList.remove("hidden") : clearBtn.classList.add("hidden") // Show clear button
-  currentPage === 0 || currentPage === pages.length-1 ? nextBtn.classList.add("hidden") : nextBtn.classList.remove("hidden") // Show next button
+  currentPage === 0 || currentPage >= pages.length-2 ? nextBtn.classList.add("hidden") : nextBtn.classList.remove("hidden") // Show next button until Summary page
+  currentPage === pages.length-1 ? backBtn.classList.add("hidden") : backBtn.classList.remove("hidden")
+  currentPage === pages.length-1 ? clearBtn.classList.add("hidden") : clearBtn.classList.remove("hidden")
 }
 
 /* ------------ CLEAR FORM BUTTON ------------ */
@@ -168,12 +222,14 @@ function clearForm() {
 
 function showShippingInfo() {
   let deliveryDateMin = new Date().toLocaleDateString()
-
-  let deliveryDateMax = new Date();
-  deliveryDateMax.setDate(deliveryDateMax.getDate() + this.dataset.time)
+  let deliveryDateMax = new Date()
+  let shippingTime = parseInt(this.dataset.time)
+  deliveryDateMax.setDate(deliveryDateMax.getDate() + shippingTime)
   deliveryDateMax = deliveryDateMax.toLocaleDateString()
   deliveryDateText.innerHTML = `Between <span class="bold">${deliveryDateMin}</span> and <span class="bold">${deliveryDateMax}</span>`
   shippingInfo.classList.remove("display-none")
+  selectedProduct.deliveryDateMin = deliveryDateMin
+  selectedProduct.deliveryDateMax = deliveryDateMax
 }
 
 /* ------------ IS IT A GIFT ------------ */
@@ -182,6 +238,15 @@ function showGiftOptions() {
   giftOptions.classList.toggle("display-none")
 }
 
+/* ------------ REFRESH PRODUCT INFO IN SUMMARY ------------ */
+
+function refreshSelectedProduct() {
+  summaryName.innerHTML = selectedProduct.name
+  summaryPackage.innerHTML = `<span class="bold">Premium package</span>: ${selectedProduct.package}`
+  summaryDelivery.innerHTML = `<span class="bold">Estimate delivery date</span>: between ${selectedProduct.deliveryDateMin} and ${selectedProduct.deliveryDateMax}`
+  summaryPrice.innerHTML = `${selectedProduct.price+selectedProduct.packagePrice}€`
+  summaryPriceBreakdown.innerHTML = `Glasses: ${selectedProduct.price}€ | Package: ${selectedProduct.packagePrice}€`
+}
 
 
 
@@ -211,6 +276,9 @@ function prueba5() {
 - Ver wrap para elementos flex superpuestos al contraer pantalla
 - Valorar añadir un 1 a la bolsa del header si currentPage != 0
 - Valorar cambiar let por const en las búsquedas de elementos del DOM (+ uppercase)
+- Cambiar las imágenes del aside por página
+- Valorar quitar el select de country, poner solo unos pocos, y buscar una forma de que, si la opción elegida es "Mi país no está en esta lista"
+  aparezca un mensaje de que estamos trabajando para enviar a más países. Esto debería invalidar el campo y no dejar continuar.
 */
 
 
@@ -238,13 +306,13 @@ function prueba5() {
     y en teoría sobreescribe el valor previo del input
 * --- Solo el clear vacía los campos ---
 * --- Creamos un atributo data-type-index para el índice. ---
-* --- Cada vez que damos a Next, una variable currentIndex
-    (que empieza en 0, ya que aquí hay una página sin bloque de índice, la de producto) suma 1 (o resta si retrocedemos) ---
-* --- Cuando nos movemos, le decimos que elimine la clase active para todos los elementos mayores que currentIndex.
-    De esa forma todos los índices desde el primero hasta el actual tendrán un estilo destacado para que sepamos en qué paso estamos.
-    Podemos añadir una clase especial evenMoreActive para el data-type-index = valor de currentIndex que lo destaque más. ---
-* Para mostrar la foto del producto usar setAttribute para src del img con template string como `src="img/product${selectedProduct}`
-* Para mostrarla en el proceso de compra
-* Hacer una función específica, con un if que mire el valor de currentPage y, si es === 1 (primera página) corre y
-    establece el atributo en base a lo seleccionado
+* --- Cada vez que damos a Next, una variable currentIndex ---
+    --- (que empieza en 0, ya que aquí hay una página sin bloque de índice, la de producto) suma 1 (o resta si retrocedemos) ---
+* --- Cuando nos movemos, le decimos que elimine la clase active para todos los elementos mayores que currentIndex. ---
+    --- De esa forma todos los índices desde el primero hasta el actual tendrán un estilo destacado para que sepamos en qué paso estamos. ---
+    --- Podemos añadir una clase especial evenMoreActive para el data-type-index = valor de currentIndex que lo destaque más. ---
+* --- Para mostrar la foto del producto usar setAttribute para src del img con template string como `src="img/product${selectedProduct}` ---
+* --- Para mostrarla en el proceso de compra ---
+* --- Hacer una función específica, con un if que mire el valor de currentPage y, si es === 1 (primera página) corre y
+    establece el atributo en base a lo seleccionado ---
 */
