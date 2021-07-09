@@ -541,12 +541,22 @@
               <h2>Shipping</h2>
 
               <label for="freeShipping">
-                <input type="radio" value="freeShipping" id="freeShipping" />
+                <input
+                  type="radio"
+                  value="freeShipping"
+                  id="freeShipping"
+                  name="shipping"
+                />
                 Free Shipping (72H)
               </label>
 
               <label for="extraShipping">
-                <input type="radio" value="extraShipping" id="extraShipping" />
+                <input
+                  type="radio"
+                  value="extraShipping"
+                  id="extraShipping"
+                  name="shipping"
+                />
                 Extra Shipping (48H) 4,99€
               </label>
 
@@ -555,6 +565,7 @@
                   type="radio"
                   value="premiumShipping"
                   id="premiumShipping"
+                  name="shipping"
                 />
                 Premium (24H) 9,99€
               </label>
@@ -581,19 +592,80 @@
           </form>
 
           <!---------- 5th SCREEN -------->
+
           <div id="finish" class="finish">
-            <h2>Shipping</h2>
-            <p>Shipping type:</p>
-            <div id="shippingType">
-              <!-- metodo de envio elegido y su importe-->
+            <div id="yourPurhase">
+              <div id="">
+                <h2>Your purchase</h2>
+                <img src="" alt="productCoose" />
+              </div>
+              <div id="">
+                <p id="productSelected">Brown Sunglasses</p>
+                <p>Size:</p>
+                <p id="sizeSelected"></p>
+                <p>Color:</p>
+                <p id="ColorSelected"></p>
+                <h3>ESTIMATE DELIVERY DATE:</h3>
+                <p id="deliveryDate"></p>
+              </div>
+              <label for="checkbox">
+                <input type="checkbox" id="checkboxBuyOrder" /> This is my regular
+                address
+              </label>
+              <p id="termsAndConditionsIncorrectText">
+                Please accept the terms and conditions
+              </p>
+              <button class="navBtn next">Buy Order</button>
             </div>
-            <p>Your order will arrive:</p>
-            <div id="dateArriving"><!-- cuando lega el pedido --></div>
-            <div id="gitMessage"></div>
+            <div id="price">14
+              <h3>Your order</h3>
+              <div id="horizontalLine"></div>
+              <p>Sunglasses: </p><p id="priceSelectedSunglasses"></p>
+              <p id="selectedShipping"> </p><p id="priceSelectedShipping"></p>
+              <div id="horizontalLine"></div>
+              <p>Total: </p><p id="totalPrice"></p>
+            </div>
+            <div id="time">
+              <p id="timePassed"></p>
+              <p>Hurry up!</p>
+            </div>
           </div>
+
           <!---------- 6th SCREEN -------->
+
           <div id="thank-you" class="thank-you">
-            <p>finish page</p>
+            <div id="">
+              <h1>Your order is complete!</h1>
+              <h2>Thanks for yournorder!</h2>
+            </div>
+            <div id="yourPurhase">
+              <div id="">
+                <h2>Your purchase</h2>
+                <img src="" alt="productCoose" />
+              </div>
+              <div id="">
+                <p id="productSelected">Brown Sunglasses</p>
+                <p>Size:</p>
+                <p id="sizeSelected"></p>
+                <p>Color:</p>
+                <p id="ColorSelected"></p>
+                <h3>ESTIMATE DELIVERY DATE:</h3>
+                <p id="deliveryDate"></p>
+              </div>
+
+            <div id="price">14
+              <h3>Your order</h3>
+              <div id="horizontalLine"></div>
+              <p>Sunglasses: </p><p id="priceSelectedSunglasses"></p>
+              <p id="selectedShipping"> </p><p id="priceSelectedShipping"></p>
+              <div id="horizontalLine"></div>
+              <p>Total: </p><p id="totalPrice"></p>
+            </div>
+          </div>
+          <div id="timeRegistration">
+            <p>Your registration took: </p>
+            <p id="timeRegistration"></p>
+          </div>
           </div>
         </section>
 

@@ -31,7 +31,6 @@ let expressions = {
 
 // ------------ VALIDATING FUNCTION----------
 
-
 // let validateField = (expression, input, field) => {
 //   if (expression.test(input.value)) {
 //     document.getElementById(`${field}`).classList.remove("incorrect");
@@ -47,7 +46,6 @@ let expressions = {
 //   }
 // };
 
-
 let validateForm = (e) => {
   switch (
     e.target.name // EVENTO TARGETEA AL NOMBRE
@@ -58,8 +56,6 @@ let validateForm = (e) => {
       // function validateField() {
       //   if (expression.test(input.value))
 
-
-      
       break;
 
     case "email":
@@ -84,9 +80,9 @@ let validateForm = (e) => {
       break;
 
     //case "birthday":
-      //validateDate();
-      //console.log(birthday(date));
-      //break;
+    //validateDate();
+    //console.log(birthday(date));
+    //break;
 
     case "address1":
       validateField(expressions.address, e.target, "address1");
@@ -175,19 +171,23 @@ function moveForward() {
   if (actualPage == "product") {
     product.style.display = "none";
     profile.style.display = "flex";
+    document.getElementById('profileBall').classList.add("ballBlack");
     topNav.style.display = "flex";
     actualPage = "profile";
   } else if (actualPage == "profile") {
     profile.style.display = "none";
     address.style.display = "flex";
+    document.getElementById('addressBall').classList.add("ballBlack");
     actualPage = "address";
   } else if (actualPage == "address") {
     address.style.display = "none";
     shipping.style.display = "flex";
+    document.getElementById('shippingBall').classList.add("ballBlack");
     actualPage = "shipping";
   } else if (actualPage == "shipping") {
     shipping.style.display = "none";
     finish.style.display = "flex";
+    document.getElementById('finishBall').classList.add("ballBlack");
     actualPage = "finish";
   } else if (actualPage == "finish") {
     finish.style.display = "none";
@@ -201,18 +201,22 @@ function moveBackward() {
   if (actualPage == "thankYou") {
     thankYou.style.display = "none";
     finish.style.display = "flex";
+    document.getElementById('finishBall').classList.remove("ballBlack");
     actualPage = "finish";
   } else if (actualPage == "finish") {
     finish.style.display = "none";
     shipping.style.display = "flex";
+    document.getElementById('shippingBall').classList.remove("ballBlack");
     actualPage = "shipping";
   } else if (actualPage == "shipping") {
     shipping.style.display = "none";
     address.style.display = "flex";
+    document.getElementById('addressBall').classList.remove("ballBlack");
     actualPage = "address";
   } else if (actualPage == "address") {
     address.style.display = "none";
     profile.style.display = "flex";
+    document.getElementById('profileBall').classList.remove("ballBlack");
     actualPage = "profile";
   } else if (actualPage == "profile") {
     profile.style.display = "none";
