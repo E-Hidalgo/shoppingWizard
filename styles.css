@@ -94,8 +94,9 @@ header {
   background-color: black;
 }
 
-.ballBlack{
+.ballBlack {
   background-color: black;
+  border: 2px solid white;
 }
 
 .centerBall {
@@ -108,6 +109,7 @@ header {
 
 .thumbNail {
   width: 50px;
+  border: 2px solid transparent;
 }
 .thumbNail:hover {
   border: 2px solid black;
@@ -118,10 +120,11 @@ header {
 .thumbNailChoose {
   width: 50px;
   margin: 10px;
+  border: 2px solid transparent;
 }
 
 .thumbNailChoose:hover {
-  width: 53px;
+  width: 50px;
   margin: 10px;
   border: 2px solid black;
 }
@@ -176,6 +179,16 @@ header {
 select {
   margin: 10px 0px;
   padding: 10px;
+}
+.form input {
+  width: 300px;
+  max-width: 300px;
+}
+.form p {
+  font-size: 14px;
+  color: grey;
+  max-width: 300px;
+  max-width: 300px;
 }
 
 /* --------- BUTTONS --------- */

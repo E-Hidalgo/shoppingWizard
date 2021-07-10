@@ -25,11 +25,15 @@ clearBtn.addEventListener("click", () => {
 
 // ----- SWITCH IMAGES BY CLICKING DIFFERENT MODEL ------
 let currentModel = 1;
-
+let firstModelName = document.getElementById("firstModelName");
+let secondModelName = document.getElementById("secondModelName");
+secondModelName.style.display = "none";
 let model1 = document.querySelector("#model1");
 
 model1.addEventListener("click", () => {
   currentModel = 1;
+  firstModelName.style.display = "flex";
+  secondModelName.style.display = "none";
   mainImg.src = "/img/gradiant_amare/product1-side.png";
   img1.src = "/img/gradiant_amare/product1-side.png";
   img2.src = "/img/gradiant_amare/product1-front.png";
@@ -40,6 +44,8 @@ let model2 = document.querySelector("#model2");
 
 model2.addEventListener("click", () => {
   currentModel = 2;
+  firstModelName.style.display = "none";
+  secondModelName.style.display = "flex";
   mainImg.src = "/img/gradiant_calhoun/product2-side.png";
   img1.src = "/img/gradiant_calhoun/product2-side.png";
   img2.src = "/img/gradiant_calhoun/product2-front.png";
@@ -63,7 +69,7 @@ let model7 = document.querySelector("#model7");
 
 //  -------- CHANGE THEE VIEW IN EACH MODEL ------
 
-img1.addEventListener("click", showImg);
+img1.addEventListener("mouseenter", showImg);
 
 // function showImg() {
 //   switch (currentModel) {
@@ -90,7 +96,7 @@ function showImg() {
   }
 }
 
-img2.addEventListener("click", () => {
+img2.addEventListener("mouseenter", () => {
   if (currentModel == 1) {
     mainImage.src = "/img/gradiant_amare/product1-front.png";
   } else if (currentModel == 2) {
@@ -100,7 +106,7 @@ img2.addEventListener("click", () => {
   }
 });
 
-img3.addEventListener("click", () => {
+img3.addEventListener("mouseenter", () => {
   if (currentModel == 1) {
     mainImage.src = "/img/gradiant_amare/product1-right.png";
   } else if (currentModel == 2) {
@@ -118,7 +124,7 @@ let expressions = {
   password2: /^[a-zA-Z0-9\W\-_]{6,}$/,
   firstName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
   lastName: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
-  //  birthday: /^[0-9]{2}$+\+[0-9]{2}$+\+[0-9]{4}$/,
+  birthday: /^[true]$/,
   address: /^[a-zA-Z0-9\/\,]+/,
   postalCode: /^[0-9]{5,5}$/,
   //country: /^[a-zA-Z0-9]/,
@@ -132,7 +138,7 @@ let validateForm = (event) => {
     event.target.name // EVENTO TARGETEA AL NOMBRE
   ) {
     case "username":
-      validateField(expressions.username, e.target, "username");
+      validateField(expressions.username, event.target, "username");
 
       // function validateField() {
       //   if (expression.test(input.value))
@@ -160,10 +166,14 @@ let validateForm = (event) => {
       validateField(expressions.lastName, event.target, "lastName");
       break;
 
-    //case "birthday":
-    //validateDate();
-    //console.log(birthday(date));
-    //break;
+    // case "birthday":
+    //   if ("birthday" === true) {
+    //     birthday.classList.add("correct");
+    //   } else if ("birthday" === false) {
+    //     birthday.classList.remove("correct");
+    //     birthday.classList.add("incorrect");
+    //   }
+    //   break;
 
     case "address1":
       validateField(expressions.address, event.target, "address1");
@@ -231,6 +241,7 @@ form.addEventListener("submit", (event) => {
 
 let next = document.getElementById("next");
 next.addEventListener("click", moveForward);
+
 let back = document.getElementById("back");
 back.addEventListener("click", moveBackward);
 
@@ -243,11 +254,15 @@ let thankYou = document.getElementById("thank-you");
 
 let topNav = document.getElementById("lineNav");
 
+//  --------- NAVIGATION FUNCTIONALITY ----------
+
 let actualPage = "product";
+back.style.visibility = "hidden";
 
 function moveForward() {
   console.log("hola");
   if (actualPage == "product") {
+    back.style.visibility = "visible";
     product.style.display = "none";
     profile.style.display = "flex";
     document.getElementById("profileBall").classList.add("ballBlack");
@@ -298,6 +313,7 @@ function moveBackward() {
     document.getElementById("profileBall").classList.remove("ballBlack");
     actualPage = "profile";
   } else if (actualPage == "profile") {
+    back.style.visibility = "hidden";
     profile.style.display = "none";
     product.style.display = "block";
     topNav.style.display = "none";
@@ -308,5 +324,5 @@ function moveBackward() {
 // ------------ REFRESH AT 5 MIN ------------
 
 setInterval(() => {
-  window.location.reload();
+  document.location.reload();
 }, 300000);
