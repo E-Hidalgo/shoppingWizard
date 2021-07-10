@@ -48,6 +48,7 @@ productMainThumbnail.forEach((product) => {
 })
 packageCheckbox.addEventListener("click", packagePremiumSelected)
 buyBtn.addEventListener("click", nextPage)
+
 freeShipping.addEventListener("change", showShippingInfo)
 extraShipping.addEventListener("change", showShippingInfo)
 premiumShipping.addEventListener("change", showShippingInfo)
@@ -70,9 +71,9 @@ let selectedProduct = {
   id:1,
   name:"Gradiant Amare",
   price:21,
-  packagePrice: 0,
+  packagePrice:0,
   package:"Nope, are you sure? Go back and get it!",
-  deliveryPrice: 0
+  deliveryPrice:0
 }
 
 /* ------------ FUNCTIONS SECTION ------------ */
@@ -109,7 +110,7 @@ function changePictures() {
   thirdThumbnail.setAttribute("src", `img/products/product${currentProduct}/product${currentProduct}-3.png`)
 }
 
-/* ------------ PRICE ------------ */
+/* ------------ PRODUCT PRICE ------------ */
 
 function packagePremiumSelected() {
   packageImage.classList.toggle("package-image-active")
@@ -131,6 +132,10 @@ function changePrice() {
 
 /* ------------ VALIDATE INPUTS ------------ */
 // ? WORK IN PROGRESS
+
+function validateForm() {
+  pages[currentPage].querySelectorAll("[data-input]").forEach(id)
+}
 
 // pages[currentPage].querySelectorAll("input")
 
@@ -182,7 +187,11 @@ function showImageAside() {
 }
 
 function changeImageAside() { // Just for some styling
-  currentPage > 2 ? imageAside.setAttribute("src", "img/resources/resource08.jpg") : imageAside.setAttribute("src", "img/resources/resource09.jpg")
+  if (currentPage > 5) { // We have 5 images for aside, but in case we implement a new page, we will display a default one
+    imageAside.setAttribute("src", `img/aside/aside1.jpg`)
+  } else {
+    imageAside.setAttribute("src", `img/aside/aside${currentPage}.jpg`)
+  }
 }
 
 function showBagItem() { // We display a fixed 1 in product bag in the header
@@ -264,7 +273,7 @@ function showGiftOptions() {
 
 function finishTime() {
   timeFinish = new Date()
-  finishTimeText.innerHTML = `It took you ${Math.round((((timeFinish-timeStart) % 86400000) % 3600000) / 60000)} minutes to finish your purchase`
+  finishTimeText.innerHTML = `It took you ${Math.round((((timeFinish-timeStart) % 86400000) % 3600000) / 60000)} minutes to finish your purchase, congrats!`
 }
 
 /* ------------ REFRESH PRODUCT INFO IN SUMMARY ------------ */
@@ -279,9 +288,12 @@ function refreshSelectedProduct() {
 }
 
 
+
+
 /* ------------ SELF NOTES ------------ */
 
 /* PENDIENTE:
-- Cambiar las imágenes del aside por página
+! - Validación de formulario
 - Valorar que la validación busque inputs con clase "correct"
+- Valorar modificar el valor validationMessage que usa HTML
 */
