@@ -23,17 +23,15 @@ clearBtn.addEventListener("click", () => {
   actualPage = "product";
 });
 
-// ----- SWITCH IMAGES BY CLICKING DIFFERENT MODEL ------
-let currentModel = 1;
-let firstModelName = document.getElementById("firstModelName");
-let secondModelName = document.getElementById("secondModelName");
-secondModelName.style.display = "none";
-let model1 = document.querySelector("#model1");
+// ----- SWITCH IMAGES AND NAME BY CLICKING DIFFERENT MODEL ------
 
+let productName = document.getElementById("firstModelName");
+let currentModel = 1;
+
+let model1 = document.querySelector("#model1");
 model1.addEventListener("click", () => {
   currentModel = 1;
-  firstModelName.style.display = "flex";
-  secondModelName.style.display = "none";
+  productName.innerHTML = "Gradiant Amare";
   mainImg.src = "/img/gradiant_amare/product1-side.png";
   img1.src = "/img/gradiant_amare/product1-side.png";
   img2.src = "/img/gradiant_amare/product1-front.png";
@@ -41,11 +39,9 @@ model1.addEventListener("click", () => {
 });
 
 let model2 = document.querySelector("#model2");
-
 model2.addEventListener("click", () => {
   currentModel = 2;
-  firstModelName.style.display = "none";
-  secondModelName.style.display = "flex";
+  productName.innerHTML = "Gradiant Calhoun";
   mainImg.src = "/img/gradiant_calhoun/product2-side.png";
   img1.src = "/img/gradiant_calhoun/product2-side.png";
   img2.src = "/img/gradiant_calhoun/product2-front.png";
@@ -53,19 +49,56 @@ model2.addEventListener("click", () => {
 });
 
 let model3 = document.querySelector("#model3");
-
 model3.addEventListener("click", () => {
   currentModel = 3;
+  productName.innerHTML = "Gradiant Crystal";
   mainImg.src = "/img/gradiant_crystal/product3-side.png";
   img1.src = "/img/gradiant_crystal/product3-side.png";
   img2.src = "/img/gradiant_crystal/product3-front.png";
   img3.src = "/img/gradiant_crystal/product3-right.png";
 });
 
+// PENDIENTE CAMBIAR LA REFERENCIA Y EL NOMBRE DEL MODELO
 let model4 = document.querySelector("#model4");
+model4.addEventListener("click", () => {
+  currentModel = 4;
+  productName.innerHTML = "Gradiant Curren";
+  mainImg.src = "/img/gradiant_curren/product4-side.png";
+  img1.src = "/img/gradiant_curren/product4-side.png";
+  img2.src = "/img/gradiant_curren/product4-front.png";
+  img3.src = "/img/gradiant_curren/product4-right.png";
+});
+
 let model5 = document.querySelector("#model5");
+model5.addEventListener("click", () => {
+  currentModel = 5;
+  productName.innerHTML = "Gradiant Pogo";
+  mainImg.src = "/img/gradiant_pogo/product5-side.png";
+  img1.src = "/img/gradiant_pogo/product5-side.png";
+  img2.src = "/img/gradiant_pogo/product5-front.png";
+  img3.src = "/img/gradiant_pogo/product5-right.png";
+});
+
 let model6 = document.querySelector("#model6");
+model6.addEventListener("click", () => {
+  currentModel = 6;
+  productName.innerHTML = "Gradiant Salina";
+  mainImg.src = "/img/gradiant_salina/product6-side.png";
+  img1.src = "/img/gradiant_salina/product6-side.png";
+  img2.src = "/img/gradiant_salina/product6-front.png";
+  img3.src = "/img/gradiant_salina/product6-right.png";
+});
+
 let model7 = document.querySelector("#model7");
+model7.addEventListener("click", () => {
+  currentModel = 7;
+  productName.innerHTML = "Gradiant Vulcano";
+  mainImg.src = "/img/gradiant_vulcano/product7-side.png";
+  img1.src = "/img/gradiant_vulcano/product7-side.png";
+  img2.src = "/img/gradiant_vulcano/product7-front.png";
+  img3.src = "/img/gradiant_vulcano/product7-right.png";
+});
+
 
 //  -------- CHANGE THEE VIEW IN EACH MODEL ------
 
@@ -245,6 +278,9 @@ next.addEventListener("click", moveForward);
 let back = document.getElementById("back");
 back.addEventListener("click", moveBackward);
 
+let buy = document.getElementById("buy-button");
+buy.addEventListener("click", moveForward)
+
 let product = document.getElementById("product");
 let profile = document.getElementById("profile");
 let address = document.getElementById("address");
@@ -260,7 +296,6 @@ let actualPage = "product";
 back.style.visibility = "hidden";
 
 function moveForward() {
-  console.log("hola");
   if (actualPage == "product") {
     back.style.visibility = "visible";
     product.style.display = "none";
@@ -291,7 +326,6 @@ function moveForward() {
 }
 
 function moveBackward() {
-  console.log("hola");
   if (actualPage == "thankYou") {
     thankYou.style.display = "none";
     finish.style.display = "flex";
